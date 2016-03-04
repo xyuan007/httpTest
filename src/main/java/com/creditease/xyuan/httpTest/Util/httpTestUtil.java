@@ -1,4 +1,4 @@
-package com.creditease.xyuan.httpTest;
+package com.creditease.xyuan.httpTest.Util;
 
 import java.io.FileInputStream;
 import java.util.Properties;
