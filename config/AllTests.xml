@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllTests>
+	<SingleTest>
+		<Test model='modifyApp'>modifyApp</Test>
+		<Test model='queryAppList'>queryAppList</Test>		
+	</SingleTest>
+	<SequenceTests>
+		<SequenceTest  name='queryAndmodifyApp'>
+			<step index='1' output='app_key' model='queryAppList'>queryAppList</step>
+			<step index='2' model='modifyApp'>modifyApp</step>		
+		</SequenceTest>
+	</SequenceTests>
+</AllTests>

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-	
-
+	<model name='queryAppList'>
+		<protocol>httpjson</protocol>
+		<url>http://discovery.creditease.cn/bdapiplat/api/app/manage/qa</url>
+	</model>
+	<model name='modifyApp'>
+		<protocol>httpjson</protocol>
+		<url>http://discovery.creditease.cn/bdapiplat/api/app/manage/ea</url>
+	</model>
 </Config>

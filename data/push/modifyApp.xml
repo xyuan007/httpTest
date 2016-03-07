@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite>
+	<TestCase name='modifyApp'>
+		<app_key>40288049525941cf0152a09b12ae0008</app_key>
+		<app_name>shenyun.androiddemo</app_name>
+		<app_pkg_name>shenyun.androiddemo</app_pkg_name>
+		<app_type_id type='number'>1</app_type_id>
+		<if_data_analyze type='number'>1</if_data_analyze>
+		<if_push_info type='number'>1</if_push_info>			
+		<ip>210.22.89.58</ip>
+		<lang_id type='number'>1</lang_id>
+		<stati_type_id type='number'>1</stati_type_id>
+		<status_id type='number'>0</status_id>	
+		<user_id type='number'>1107</user_id>
+		<os_id type='number'>2</os_id>
+	</TestCase>
+</TestSuite>

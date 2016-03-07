@@ -1,2 +1,5 @@
 RunMode=1
 TestProject=push
+HttpProxy=false
+ProxyIP=10.36.40.84
+ProxyPort=8888
