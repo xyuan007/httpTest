@@ -6,7 +6,7 @@ import java.util.Map;
 import org.dom4j.Element;
 
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
-import com.creditease.xyuan.httpTest.Util.XMLUtil;
+import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
 import com.creditease.xyuan.httpTest.object.ConfigData;
 
@@ -17,7 +17,7 @@ public class ConfigHelper {
 	public ConfigHelper() throws Exception{
 		this.projectName = PropUtil.getProjectName();
 		String configFile = String.format("config\\%s.xml", this.projectName);
-		Element root = XMLUtil.getRootElement(configFile);
+		Element root = MyXMLUtil.getRootElement(configFile);
 		
 		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getBizData().getModelName()));
 	}

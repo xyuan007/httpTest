@@ -17,35 +17,8 @@ import com.creditease.xyuan.httpTest.object.BizData;
 
 public class HttpPostProtocolImpl  implements IHttpProtocol {
 
-	public String httpExecute(Map<String, String> headers,Map<String, String> param,String body){
-		String res = null;
-		CloseableHttpClient httpclient = HttpClientUtil.getClient();
-		BizData bd = BizDataUtil.getBizData();
-		HttpPost post = new HttpPost();
-		
-		try{
-			post.setHeader(HTTP.CONTENT_TYPE, "application/json");  
-			if (headers != null) {  
-	             for (Map.Entry<String,String> entry : headers.entrySet()) { 
-	                 post.addHeader(entry.getKey(), entry.getValue());  
-	             }  
-	      	}
-			StringEntity entity = new StringEntity(body,"utf-8");  
-			post.setEntity(entity);
-			
-			CloseableHttpResponse response = httpclient.execute(post);
-	        System.out.println(response.toString());
-	          
-	        HttpEntity resEntity = response.getEntity();
-	        res = EntityUtils.toString(resEntity, "utf-8");
-	        System.out.println(res);
-		}
-		catch(Exception ex){}
-		finally{
-			post.releaseConnection();
-		}
-		
-		return res;
+	public String httpExecute(String url, Map<String, String> headers,Object body) throws Exception {
+		return null;
 	}
 
 }

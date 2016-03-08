@@ -6,7 +6,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-public class XMLUtil {
+public class MyXMLUtil {
 	
 	public static Element getRootElement(String file) throws Exception{
 		SAXReader reader = new SAXReader();           

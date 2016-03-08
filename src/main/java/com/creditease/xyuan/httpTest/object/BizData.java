@@ -8,6 +8,8 @@ public class BizData {
 	private String caseName = null;
 	private Map<String,String> output = null;
 	
+	public BizData(){}
+	
 	public BizData(String modelName,String caseName){
 		this.modelName = modelName;
 		this.caseName = caseName;

@@ -4,5 +4,7 @@
 		<user_id type='number'>1107</user_id>
 		<order_by type='array'>create_time,desc</order_by>
 		<mp>appQuery</mp>
+		<input param='input' result='number'>appQuery</input>	
+		<dy param='func' result='number' class='com.creditease.xyuan.httpTest.Util.FuncUtil'>getString</dy>				
 	</TestCase>
 </TestSuite>
