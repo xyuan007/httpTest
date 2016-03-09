@@ -3,23 +3,13 @@ package com.creditease.xyuan.httpTest.Helper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.xml.XMLSerializer;
-
 import org.dom4j.Element;
-
 import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 
 public class XML2Json {
 	
-	private String getJsonString(){
-		String res = null;
-		
-		return res;
-	}
 	
 	private JSONArray getArray(String str){
 		JSONArray json = null;

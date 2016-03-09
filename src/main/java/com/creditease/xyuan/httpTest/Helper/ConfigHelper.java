@@ -2,9 +2,7 @@ package com.creditease.xyuan.httpTest.Helper;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.dom4j.Element;
-
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
@@ -19,7 +17,7 @@ public class ConfigHelper {
 		String configFile = String.format("config\\%s.xml", this.projectName);
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
-		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getBizData().getModelName()));
+		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getModelName()));
 	}
 	
 	public Element getConfigElement(){
@@ -41,17 +39,23 @@ public class ConfigHelper {
 		cd.setUrl(ele.elementText("url"));
 		
 		Element eleHeader = ele.element("header");
-		Map<String,String> header = new HashMap<String,String>();
-		for(int i=0;i<eleHeader.elements().size();i++){
-			Element temp = (Element) eleHeader.elements().get(i);
-			header.put(temp.getName(), temp.getTextTrim());
+		Map<String,String> header = null;
+		if(eleHeader!=null){
+			header = new HashMap<String,String>();
+			for(int i=0;i<eleHeader.elements().size();i++){
+				Element temp = (Element) eleHeader.elements().get(i);
+				header.put(temp.getName(), temp.getTextTrim());
+			}
 		}
 		
 		Element eleParam = ele.element("param");
-		Map<String,String> param = new HashMap<String,String>();
-		for(int i=0;i<eleParam.elements().size();i++){
-			Element temp = (Element) eleHeader.elements().get(i);
-			header.put(temp.getName(), temp.getTextTrim());
+		Map<String,String> param = null;
+		if(eleParam!=null){
+			param = new HashMap<String,String>();
+			for(int i=0;i<eleParam.elements().size();i++){
+				Element temp = (Element) eleHeader.elements().get(i);
+				param.put(temp.getName(), temp.getTextTrim());
+			}
 		}
 		
 		cd.setHeaders(header);

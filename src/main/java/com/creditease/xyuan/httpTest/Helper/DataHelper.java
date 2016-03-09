@@ -1,13 +1,10 @@
 package com.creditease.xyuan.httpTest.Helper;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.dom4j.Attribute;
 import org.dom4j.Element;
 import com.creditease.xyuan.httpTest.Util.*;
-import com.creditease.xyuan.httpTest.object.BizData;
 
 public class DataHelper {
 	String projectName = null;
@@ -15,10 +12,10 @@ public class DataHelper {
 	
 	public DataHelper() throws Exception{
 		this.projectName = PropUtil.getProjectName();
-		String configFile = String.format("data\\%s\\%s.xml", this.projectName,BizDataUtil.getBizData().getModelName());
+		String configFile = String.format("data\\%s\\%s.xml", this.projectName,BizDataUtil.getModelName());
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
-		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",BizDataUtil.getBizData().getCaseName()));
+		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",BizDataUtil.getCaseName()));
 		
 		processElement(ele);
 	}
@@ -39,13 +36,13 @@ public class DataHelper {
 			
 			if(param != null){
 				if(param.equals("input")){
-					Map<String,String> map = BizDataUtil.getBizData().getOutput();
+					Map<String,Object> map = OutputUtil.getOutput();
 					Element ele = element.addElement(temp.getName());
-					ele.addText(map.get(text));
-					if(result.equals("number")){
-						ele.addAttribute("type", "number");
-					}
-					element.remove(temp);
+					Object obj = map.get(text);
+					if(obj == null)
+						ele.addText("");
+					else
+						ele.addText(obj.toString());
 				}
 				else if (param.equals("func")){
 					Class clazz = Class.forName(temp.attributeValue("class"));
@@ -54,11 +51,12 @@ public class DataHelper {
 					
 					Element ele = element.addElement(temp.getName());
 					ele.addText((String)obj);
-					if(result.equals("number")){
-						ele.addAttribute("type", "number");
-					}
-					element.remove(temp);
 				}
+				
+				if(result != null && result.equals("number")){
+					ele.addAttribute("type", "number");
+				}
+				element.remove(temp);
 			}
 		}
 	}
@@ -80,8 +78,4 @@ public class DataHelper {
 		return null;
 	}
 	
-	public static void main(String[] args) throws Exception{
-		DataHelper dh = new DataHelper();
-		
-	}
 }

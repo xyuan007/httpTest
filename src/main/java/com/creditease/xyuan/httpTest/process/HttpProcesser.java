@@ -9,7 +9,7 @@ import com.creditease.xyuan.httpTest.object.ConfigData;
 
 public class HttpProcesser {
 	
-	public static void execute(Element config,Element data) throws Exception{
+	public static void execute(Element config) throws Exception{
 		String response = null;
 		IHttpProtocol http = null;
 		

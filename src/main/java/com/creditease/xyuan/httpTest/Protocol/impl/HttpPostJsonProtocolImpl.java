@@ -12,8 +12,8 @@ import org.apache.http.util.EntityUtils;
 
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Util.OutputUtil;
 import com.creditease.xyuan.httpTest.Util.HttpClientUtil;
-import com.creditease.xyuan.httpTest.object.BizData;
 
 public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 
@@ -22,7 +22,6 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 			Object body) throws Exception {
 		String res = null;
 		CloseableHttpClient httpclient = HttpClientUtil.getClient();
-		BizData bd = BizDataUtil.getBizData();
 		HttpPost post = new HttpPost(url);
 		
 		try{

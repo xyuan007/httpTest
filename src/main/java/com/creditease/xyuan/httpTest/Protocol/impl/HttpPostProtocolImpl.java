@@ -12,8 +12,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Util.OutputUtil;
 import com.creditease.xyuan.httpTest.Util.HttpClientUtil;
-import com.creditease.xyuan.httpTest.object.BizData;
 
 public class HttpPostProtocolImpl  implements IHttpProtocol {
 
