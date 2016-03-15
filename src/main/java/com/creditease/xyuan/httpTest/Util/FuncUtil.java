@@ -6,6 +6,6 @@ public class FuncUtil {
 	}
 	
 	public static int getInt(){
-		return 10;
+		return 159;
 	}
 }

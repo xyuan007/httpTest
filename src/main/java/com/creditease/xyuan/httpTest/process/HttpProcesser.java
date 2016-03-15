@@ -28,7 +28,14 @@ public class HttpProcesser {
 		//执行
 		response = http.httpExecute(cd.getUrl(), cd.getHeaders(), body);
 		
+		System.out.println(body);
 		System.out.println(response);
 		//验证
+		
+		
+		
+		//清理数据
+		dh = null;
+		cd = null;
 	}
 }

@@ -2,10 +2,14 @@
 <Config>
 	<model name='queryAppList'>
 		<protocol>httpjson</protocol>
-		<url>http://discovery.creditease.cn/bdapiplat/api/app/manage/qa</url>
+		<url>http://10.36.40.26:88/bdapiplat/api/app/manage/qa</url>
 	</model>
 	<model name='modifyApp'>
 		<protocol>httpjson</protocol>
-		<url>http://discovery.creditease.cn/bdapiplat/api/app/manage/ea</url>
+		<url>http://10.36.40.26:88/bdapiplat/api/app/manage/ea</url>
 	</model>
+	<model name='lg'>
+		<protocol>httpjson</protocol>
+		<url>http://10.36.40.26:88/bdapiplat/api/app/manage/lg</url>
+	</model>	
 </Config>

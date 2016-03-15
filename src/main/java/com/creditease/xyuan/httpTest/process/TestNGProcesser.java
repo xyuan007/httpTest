@@ -1,6 +1,7 @@
 package com.creditease.xyuan.httpTest.process;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,9 @@ import com.creditease.xyuan.httpTest.Util.PropUtil;
 import com.creditease.xyuan.httpTest.Util.TestFileUtil;
 
 public class TestNGProcesser {
-	public static void main(String[] args) throws Exception{
-		TestNGProcesser tp = new TestNGProcesser();
-		tp.test();
-	}
+
+	
+	
 	
 	public void test() throws Exception{
 		Element eleSingle = null;
@@ -36,26 +36,25 @@ public class TestNGProcesser {
 			eleSequence = TestFileUtil.getSequenceTests(projectName);
 		}
 		
-		//SingleTest的用例执行
-		for(int i=0;i<eleSingle.elements().size();i++){
-			Element eleCur = (Element) eleSingle.elements().get(i);
-			modelName  = eleCur.attributeValue("model");
-			String[] tests = eleCur.getTextTrim().split(",");
-			
-			for(int j=0;j<tests.length;j++){
-				BizDataUtil.init(modelName,tests[j]);
-				//执行TESTNG CASE
-				runTestNG();
-				
-			}
-		}
+//		//SingleTest的用例执行
+//		for(int i=0;i<eleSingle.elements().size();i++){
+//			Element eleCur = (Element) eleSingle.elements().get(i);
+//			modelName  = eleCur.attributeValue("model");
+//			String[] tests = eleCur.getTextTrim().split(",");
+//			
+//			for(int j=0;j<tests.length;j++){
+//				BizDataUtil.init(modelName,tests[j]);
+//				//执行TESTNG CASE
+//				runTestNG();
+//			}
+//		}
 		
 		//SequenceTest的用例执行
 		for(int i=0;i<eleSequence.elements().size();i++){
-			Element eleCur = (Element) eleSingle.elements().get(i);
+			Element eleCur = (Element) eleSequence.elements().get(i);
 			String seqName = eleCur.attributeValue("name");
 			for(int j=0;j<eleCur.elements().size();j++){
-				Element eleStep = (Element)eleCur.selectSingleNode(String.format("/SequenceTest/step[@index=\"%d\"]",j+1));
+				Element eleStep = (Element)eleCur.selectSingleNode(String.format("/AllTests/SequenceTests/SequenceTest[@name=\"%s\"]/step[@stepid=\"%d\"]",seqName,j+1));
 				modelName  = eleStep.attributeValue("model");
 				String caseName = eleStep.getTextTrim();
 				
@@ -64,7 +63,6 @@ public class TestNGProcesser {
 				runTestNG();
 			}
 		}
-		
 	}
 	
 	private void runTestNG(){

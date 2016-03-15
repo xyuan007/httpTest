@@ -37,12 +37,16 @@ public class DataHelper {
 			if(param != null){
 				if(param.equals("input")){
 					Map<String,Object> map = OutputUtil.getOutput();
-					Element ele = element.addElement(temp.getName());
+					Element newEle = element.addElement(temp.getName());
 					Object obj = map.get(text);
 					if(obj == null)
-						ele.addText("");
+						newEle.addText("");
 					else
-						ele.addText(obj.toString());
+						newEle.addText(obj.toString());
+					
+					if(result != null && result.equals("number")){
+						newEle.addAttribute("type", "number");
+					}
 				}
 				else if (param.equals("func")){
 					Class clazz = Class.forName(temp.attributeValue("class"));
@@ -50,12 +54,13 @@ public class DataHelper {
 					Object obj = method.invoke(null);
 					
 					Element ele = element.addElement(temp.getName());
-					ele.addText((String)obj);
+					ele.addText(String.valueOf(obj));
+					
+					if(result != null && result.equals("number")){
+						ele.addAttribute("type", "number");
+					}
 				}
 				
-				if(result != null && result.equals("number")){
-					ele.addAttribute("type", "number");
-				}
 				element.remove(temp);
 			}
 		}

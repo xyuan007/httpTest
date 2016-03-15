@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuite>
 	<TestCase name='queryAppList'>
-		<user_id type='number'>1107</user_id>
+		<user_id type='number'>159</user_id>
 		<order_by type='array'>create_time,desc</order_by>
 		<mp>appQuery</mp>
-		<input param='input' >appQuery</input>	
-		<dy param='func' class='com.creditease.xyuan.httpTest.Util.FuncUtil'>getString</dy>				
 	</TestCase>
 </TestSuite>

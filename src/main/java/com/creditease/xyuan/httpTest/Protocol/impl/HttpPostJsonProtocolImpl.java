@@ -1,5 +1,6 @@
 package com.creditease.xyuan.httpTest.Protocol.impl;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -34,12 +35,14 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 			StringEntity entity = new StringEntity((String)body,"utf-8");  
 			post.setEntity(entity);
 			
+			Date d1 = new Date();
 			CloseableHttpResponse response = httpclient.execute(post);
-	        System.out.println(response.toString());
-	          
+			long time = new Date().getTime() - d1.getTime();
+			
+	        BizDataUtil.setHttpStatus(String.valueOf(response.getStatusLine().getStatusCode()));
+	        BizDataUtil.setHttpInvokeTime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
 	        res = EntityUtils.toString(resEntity, "utf-8");
-	        System.out.println(res);
 		}
 		catch(Exception ex){}
 		finally{
