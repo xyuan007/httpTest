@@ -7,8 +7,8 @@
 	</SingleTest>
 	<SequenceTests>
 		<SequenceTest name='queryAndmodifyApp'>
-			<step stepid='1' output='user_id' model='queryAppList'>queryAppList</step>
-			<step stepid='2' model='lg'>lg</step>		
+			<step stepid='1' model='lg'>lg</step>		
+			<step stepid='2' output='user_id' model='queryAppList'>queryAppList</step>
 		</SequenceTest>
 	</SequenceTests>
 </AllTests>

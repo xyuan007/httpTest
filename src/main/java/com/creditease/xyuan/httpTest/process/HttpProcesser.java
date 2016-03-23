@@ -1,6 +1,8 @@
 package com.creditease.xyuan.httpTest.process;
 
 import org.dom4j.Element;
+
+import com.creditease.xyuan.httpTest.Helper.AssertHelper;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
@@ -31,6 +33,10 @@ public class HttpProcesser {
 		System.out.println(body);
 		System.out.println(response);
 		//验证
+		AssertHelper.asserting(response);
+		
+
+		//验证通过，获取OUTPUT
 		
 		
 		

@@ -26,7 +26,7 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 		HttpPost post = new HttpPost(url);
 		
 		try{
-			post.setHeader(HTTP.CONTENT_TYPE, "application/json");  
+			post.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=utf-8");  
 			if (headers != null) {  
 	             for (Map.Entry<String,String> entry : headers.entrySet()) { 
 	                 post.addHeader(entry.getKey(), entry.getValue());  
@@ -34,7 +34,6 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 	      	}
 			StringEntity entity = new StringEntity((String)body,"utf-8");  
 			post.setEntity(entity);
-			
 			Date d1 = new Date();
 			CloseableHttpResponse response = httpclient.execute(post);
 			long time = new Date().getTime() - d1.getTime();

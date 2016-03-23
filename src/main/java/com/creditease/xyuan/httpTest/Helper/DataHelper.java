@@ -20,6 +20,15 @@ public class DataHelper {
 		processElement(ele);
 	}
 	
+	public String getDataByField(String field){
+		Element eleField = ele.element(field);
+		
+		if(eleField != null)
+			return eleField.getTextTrim();
+		else
+			return null;
+	}
+	
 	//将原始XML数据处理成为可以转换成JSON的XML数据（1、处理动态数据，2，写入INPUT数据）
 	private void processElement(Element element) throws Exception{
 		List<Element> list = element.elements();
@@ -49,9 +58,15 @@ public class DataHelper {
 					}
 				}
 				else if (param.equals("func")){
-					Class clazz = Class.forName(temp.attributeValue("class"));
-					Method method = clazz.getMethod(text, null);  
-					Object obj = method.invoke(null);
+					Class clazz = Class.forName(PropUtil.getFuncClass());
+					String input = temp.attributeValue("input");
+					Method method = null;
+					if(input!=null)
+						method = clazz.getMethod(text, String.class);
+					else
+						method = clazz.getMethod(text, null);
+					
+					Object obj = method.invoke(input);
 					
 					Element ele = element.addElement(temp.getName());
 					ele.addText(String.valueOf(obj));

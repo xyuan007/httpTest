@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RunTests>
-	<Test model=''></Test>
-</RunTests>
+<AllTests>
+	<SequenceTests>
+		<SequenceTest name='queryAndmodifyApp'>
+			<step stepid='1' model='lg' output='token'>lg</step>		
+			<step stepid='2' model='queryAppList'>queryAppList</step>
+		</SequenceTest>
+	</SequenceTests>
+</AllTests>

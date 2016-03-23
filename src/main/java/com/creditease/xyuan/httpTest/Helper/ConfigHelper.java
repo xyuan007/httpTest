@@ -1,5 +1,6 @@
 package com.creditease.xyuan.httpTest.Helper;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import org.dom4j.Element;
@@ -33,22 +34,30 @@ public class ConfigHelper {
 	}
 	
 	//取得配置数据
-	public static ConfigData getConfigData(Element ele){
+	public static ConfigData getConfigData(Element ele) throws Exception{
 		ConfigData cd = new ConfigData();
 		cd.setProtocol(ele.elementText("protocol"));
 		cd.setUrl(ele.elementText("url"));
 		
-		Element eleHeader = ele.element("header");
+		Element eleHeader = ele.element("headers");
 		Map<String,String> header = null;
 		if(eleHeader!=null){
 			header = new HashMap<String,String>();
 			for(int i=0;i<eleHeader.elements().size();i++){
 				Element temp = (Element) eleHeader.elements().get(i);
-				header.put(temp.getName(), temp.getTextTrim());
+				if(temp.attributeValue("func") == null)
+					header.put(temp.getName(), temp.getTextTrim());
+				else{
+					Class clazz = Class.forName(temp.attributeValue("func"));
+					Method method = clazz.getMethod(temp.getTextTrim(), null);  
+					Object obj = method.invoke(null);
+					
+					header.put(temp.getName(), (String)obj);
+				}
 			}
 		}
 		
-		Element eleParam = ele.element("param");
+		Element eleParam = ele.element("params");
 		Map<String,String> param = null;
 		if(eleParam!=null){
 			param = new HashMap<String,String>();

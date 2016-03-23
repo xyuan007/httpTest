@@ -1,5 +1,10 @@
-RunMode=1
+RunMode=3
+TestFile=Test1.xml,Test2.xml
 TestProject=push
 HttpProxy=false
 ProxyIP=10.36.40.84
 ProxyPort=8888
+RunClass=com.creditease.xyuan.httpTest.test.testngRun
+FuncClass=com.creditease.xyuan.httpTest.Util.FuncUtil
+SocketIP=10.36.40.82
+SocketPort=5449

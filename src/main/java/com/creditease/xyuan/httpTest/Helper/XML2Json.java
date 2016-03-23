@@ -10,7 +10,6 @@ import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 
 public class XML2Json {
 	
-	
 	private JSONArray getArray(String str){
 		JSONArray json = null;
 		String[] array = str.split(",");

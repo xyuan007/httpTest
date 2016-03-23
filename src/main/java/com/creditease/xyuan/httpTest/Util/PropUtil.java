@@ -40,6 +40,30 @@ public class PropUtil
     	return getProp("ProxyIP");
     }
     
+    public static String getRunMode(){
+    	return getProp("RunMode");
+    }
+    
+    public static String getTestFile(){
+    	return getProp("TestFile");
+    }
+    
+    public static String getRunClass(){
+    	return getProp("RunClass");
+    }
+    
+    public static String getSocketIP(){
+    	return getProp("SocketIP");
+    }
+    
+    public static String getFuncClass(){
+    	return getProp("FuncClass");
+    }
+    
+    public static int getSocketPort(){
+    	return Integer.parseInt(getProp("SocketPort"));
+    }
+    
     public static int getProxyPort(){
     	return Integer.parseInt( getProp("ProxyPort"));
     }

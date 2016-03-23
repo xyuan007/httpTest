@@ -17,50 +17,70 @@ import com.creditease.xyuan.httpTest.Util.PropUtil;
 import com.creditease.xyuan.httpTest.Util.TestFileUtil;
 
 public class TestNGProcesser {
-
-	
-	
+	public static void main(String[] args) throws Exception{
+		TestNGProcesser pro = new TestNGProcesser();
+		pro.test();
+	}
 	
 	public void test() throws Exception{
 		Element eleSingle = null;
 		Element eleSequence = null;
-		String modelName = null;
 		
 		//取得运行模式
 		String runMode = PropUtil.getProp("RunMode");
 		String projectName = PropUtil.getProjectName();
 		
-		//根据运行模式，到相应的配置文件 中取得测试用例
-		if(runMode.equals("1")){
-			eleSingle = TestFileUtil.getSingleTests(projectName);
-			eleSequence = TestFileUtil.getSequenceTests(projectName);
+		List<String> files = TestFileUtil.getTestFile();
+		
+		for(String file: files){
+			eleSingle = TestFileUtil.getSingleTests(file);
+			eleSequence = TestFileUtil.getSequenceTests(file);
+			
+//			runSingleTests(eleSingle);
+			runSequenceTests(eleSequence);
 		}
 		
+		
+	}
+	
+//	//运行单个用例
+//	private void runSingleTests(Element eleSingle){
+//		String modelName = null;
 //		//SingleTest的用例执行
-//		for(int i=0;i<eleSingle.elements().size();i++){
-//			Element eleCur = (Element) eleSingle.elements().get(i);
-//			modelName  = eleCur.attributeValue("model");
-//			String[] tests = eleCur.getTextTrim().split(",");
-//			
-//			for(int j=0;j<tests.length;j++){
-//				BizDataUtil.init(modelName,tests[j]);
-//				//执行TESTNG CASE
-//				runTestNG();
+//		if(eleSingle != null){
+//			for(int i=0;i<eleSingle.elements().size();i++){
+//				Element eleCur = (Element) eleSingle.elements().get(i);
+//				modelName  = eleCur.attributeValue("model");
+//				String[] tests = eleCur.getTextTrim().split(",");
+//				
+//				for(int j=0;j<tests.length;j++){
+//					BizDataUtil.init(modelName,tests[j]);
+//					//执行TESTNG CASE
+//					runTestNG();
+//				}
 //			}
 //		}
+//	}
+	
+	//运行有顺序的用例
+	private void runSequenceTests(Element eleSequence){
+		String modelName = null;
 		
-		//SequenceTest的用例执行
-		for(int i=0;i<eleSequence.elements().size();i++){
-			Element eleCur = (Element) eleSequence.elements().get(i);
-			String seqName = eleCur.attributeValue("name");
-			for(int j=0;j<eleCur.elements().size();j++){
-				Element eleStep = (Element)eleCur.selectSingleNode(String.format("/AllTests/SequenceTests/SequenceTest[@name=\"%s\"]/step[@stepid=\"%d\"]",seqName,j+1));
-				modelName  = eleStep.attributeValue("model");
-				String caseName = eleStep.getTextTrim();
-				
-				BizDataUtil.init(modelName,caseName);
-				//执行TESTNG CASE
-				runTestNG();
+		//	SequenceTest的用例执行
+		if(eleSequence != null){
+			for(int i=0;i<eleSequence.elements().size();i++){
+				Element eleCur = (Element) eleSequence.elements().get(i);
+				String seqName = eleCur.attributeValue("name");
+				for(int j=0;j<eleCur.elements().size();j++){
+					Element eleStep = (Element)eleCur.selectSingleNode(String.format("/AllTests/SequenceTests/SequenceTest[@name=\"%s\"]/step[@stepid=\"%d\"]",seqName,j+1));
+					modelName  = eleStep.attributeValue("model");
+					String caseName = eleStep.getTextTrim();
+					
+					BizDataUtil.init(modelName,caseName,eleStep.attributeValue("output"));
+					//执行TESTNG CASE
+					runTestNG();
+					
+				}
 			}
 		}
 	}
@@ -72,7 +92,7 @@ public class TestNGProcesser {
 		XmlTest test = new XmlTest(suite);
 		test.setName("TmpTest");
 		List<XmlClass> classes = new ArrayList<XmlClass>();
-		classes.add(new XmlClass("com.creditease.xyuan.httpTest.test.testngRun"));
+		classes.add(new XmlClass(PropUtil.getRunClass()));
 		test.setXmlClasses(classes) ;
 		
 		List<XmlSuite> suites = new ArrayList<XmlSuite>();
@@ -85,5 +105,4 @@ public class TestNGProcesser {
 ////		testng.addListener(tla);
 		testng.run(); 
 	}
-	
 }

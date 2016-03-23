@@ -10,6 +10,13 @@
 	</model>
 	<model name='lg'>
 		<protocol>httpjson</protocol>
-		<url>http://10.36.40.26:88/bdapiplat/api/app/manage/lg</url>
-	</model>	
+		<url>http://10.36.40.26:88/bdapiplat/api/user/manage/lu</url>	
+		<headers>
+			<Timestamp func='com.creditease.xyuan.httpTest.Util.FuncUtil'>getTimestamp</Timestamp>
+			<Signature func='com.creditease.xyuan.httpTest.Util.FuncUtil'>getSign</Signature>			
+		</headers>
+	</model>
+	<model name='connect'>
+		<protocol>socketjson</protocol>
+	</model>		
 </Config>
