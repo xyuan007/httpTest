@@ -7,18 +7,24 @@ import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
 import com.creditease.xyuan.httpTest.Protocol.impl.HttpPostJsonProtocolImpl;
+import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.object.ConfigData;
 
 public class HttpProcesser {
+	private static MyLog loger = MyLog.getLoger();
 	
 	public static void execute(Element config) throws Exception{
 		String response = null;
 		IHttpProtocol http = null;
 		
+		loger.info("开始执行HTTP处理流程");
 		//配置数据
+		loger.info("取得配置数据数据" + BizDataUtil.getModelName());
 		ConfigData cd = ConfigHelper.getConfigData(config);
 		
 		//业务数据
+		loger.info("取得业务数据:" + BizDataUtil.getCaseName());
 		DataHelper dh = new DataHelper();
 		String body = dh.getJsonBody();
 		
@@ -28,16 +34,14 @@ public class HttpProcesser {
 		}
 		
 		//执行
+		loger.info("执行HTTP请求");
 		response = http.httpExecute(cd.getUrl(), cd.getHeaders(), body);
 		
 		System.out.println(body);
 		System.out.println(response);
 		//验证
+		loger.info("结果验证");
 		AssertHelper.asserting(response);
-		
-
-		//验证通过，获取OUTPUT
-		
 		
 		
 		//清理数据

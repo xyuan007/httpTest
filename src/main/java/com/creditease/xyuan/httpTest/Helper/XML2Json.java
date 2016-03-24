@@ -6,10 +6,13 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.dom4j.Element;
+
+import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 
+//XML转为JSON
 public class XML2Json {
-	
+	private static MyLog loger = MyLog.getLoger();
 	private JSONArray getArray(String str){
 		JSONArray json = null;
 		String[] array = str.split(",");
@@ -29,40 +32,37 @@ public class XML2Json {
 		return type;
 	}
 	
-	public JSONObject getJSONObject(Element e){
+	public JSONObject getJSONObject(Element e) throws Exception{
 		List<Element> sub = e.elements();
 		Map<String,Object> map = new HashMap<String,Object>();
-		
-		for(int i=0;i<sub.size();i++){
-			Element temp = sub.get(i);
-			String  type = getType(temp);
-			
-			if(temp.elements().size() > 0){
-				JSONObject body = getJSONObject(temp);
-				map.put(temp.getName(), body);
+		try{
+			for(int i=0;i<sub.size();i++){
+				Element temp = sub.get(i);
+				String  type = getType(temp);
+				
+				if(temp.elements().size() > 0){
+					JSONObject body = getJSONObject(temp);
+					map.put(temp.getName(), body);
+				}
+				else{
+					if(type.equals("number")){
+						int num = Integer.parseInt(temp.getTextTrim());
+						map.put(temp.getName(), num);
+					}
+					else if(type.equals("string")){
+						map.put(temp.getName(), temp.getTextTrim());
+					}
+					else if(type.equals("array")){
+						map.put(temp.getName(),getArray(temp.getTextTrim()));
+					}
+				}
 			}
-			else{
-				if(type.equals("number")){
-					int num = Integer.parseInt(temp.getTextTrim());
-					map.put(temp.getName(), num);
-				}
-				else if(type.equals("string")){
-					map.put(temp.getName(), temp.getTextTrim());
-				}
-				else if(type.equals("array")){
-					map.put(temp.getName(),getArray(temp.getTextTrim()));
-				}
-			}
+		}catch(Exception ex){
+			loger.error("元素转JSON时发生异常 "+ex.getMessage());
+			throw new Exception("元素转JSON时发生异常 ");
 		}
 				
 		return JSONObject.fromObject(map);
 	}
 	
-	public static void main(String[] args) throws Exception{
-		Element root = MyXMLUtil.getRootElement("E:\\eclipse\\workspace\\httpTest\\data\\push\\queryAppList.xml");
-		Element ele = (Element) root.selectSingleNode("/TestSuite/TestCase");
-		XML2Json x = new XML2Json();
-		
-		System.out.println(x.getJSONObject(ele).toString());
-	}
 }

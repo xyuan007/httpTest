@@ -1,22 +1,23 @@
 package com.creditease.xyuan.httpTest.process;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.dom4j.Element;
 import org.testng.TestNG;
+import org.testng.log4testng.Logger;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
+import com.creditease.xyuan.httpTest.Assert.connect;
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
 import com.creditease.xyuan.httpTest.Util.TestFileUtil;
 
 public class TestNGProcesser {
+	private static MyLog loger = MyLog.getLoger();
+	
 	public static void main(String[] args) throws Exception{
 		TestNGProcesser pro = new TestNGProcesser();
 		pro.test();
@@ -27,11 +28,10 @@ public class TestNGProcesser {
 		Element eleSequence = null;
 		
 		//取得运行模式
-		String runMode = PropUtil.getProp("RunMode");
-		String projectName = PropUtil.getProjectName();
-		
+		loger.info("取得runmode");
 		List<String> files = TestFileUtil.getTestFile();
 		
+		loger.info("取得待运行的测试用例");
 		for(String file: files){
 			eleSingle = TestFileUtil.getSingleTests(file);
 			eleSequence = TestFileUtil.getSequenceTests(file);
@@ -39,8 +39,6 @@ public class TestNGProcesser {
 //			runSingleTests(eleSingle);
 			runSequenceTests(eleSequence);
 		}
-		
-		
 	}
 	
 //	//运行单个用例
@@ -66,6 +64,7 @@ public class TestNGProcesser {
 	private void runSequenceTests(Element eleSequence){
 		String modelName = null;
 		
+		loger.info("运行顺序执行的用例");
 		//	SequenceTest的用例执行
 		if(eleSequence != null){
 			for(int i=0;i<eleSequence.elements().size();i++){
@@ -78,8 +77,8 @@ public class TestNGProcesser {
 					
 					BizDataUtil.init(modelName,caseName,eleStep.attributeValue("output"));
 					//执行TESTNG CASE
+					loger.info("TESTNG动态执行用例。模块名：" + modelName + ",用例名称：" + caseName);
 					runTestNG();
-					
 				}
 			}
 		}

@@ -4,19 +4,26 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import org.dom4j.Element;
+import org.testng.log4testng.Logger;
+
 import com.creditease.xyuan.httpTest.Util.*;
 
 public class DataHelper {
+	private static MyLog logger = MyLog.getLoger();
 	String projectName = null;
 	Element ele = null;
 	
-	public DataHelper() throws Exception{
+	public DataHelper() throws Exception {
 		this.projectName = PropUtil.getProjectName();
 		String configFile = String.format("data\\%s\\%s.xml", this.projectName,BizDataUtil.getModelName());
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
 		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",BizDataUtil.getCaseName()));
 		
+		if(ele == null){
+			logger.error("数据结点未进行配置，用例名：" + BizDataUtil.getCaseName());
+			throw new Exception("数据结点未进行配置，用例名：" + BizDataUtil.getCaseName());
+		}
 		processElement(ele);
 	}
 	
@@ -33,51 +40,63 @@ public class DataHelper {
 	private void processElement(Element element) throws Exception{
 		List<Element> list = element.elements();
 		
-		for(int i=0;i<list.size();i++){
-			Element temp = list.get(i);
-			
-			if(temp.elements().size() > 0)
-				processElement(temp);
-			
-			String param = temp.attributeValue("param");
-			String result = temp.attributeValue("result");
-			String text = temp.getTextTrim();
-			
-			if(param != null){
-				if(param.equals("input")){
-					Map<String,Object> map = OutputUtil.getOutput();
-					Element newEle = element.addElement(temp.getName());
-					Object obj = map.get(text);
-					if(obj == null)
-						newEle.addText("");
-					else
-						newEle.addText(obj.toString());
-					
-					if(result != null && result.equals("number")){
-						newEle.addAttribute("type", "number");
-					}
-				}
-				else if (param.equals("func")){
-					Class clazz = Class.forName(PropUtil.getFuncClass());
-					String input = temp.attributeValue("input");
-					Method method = null;
-					if(input!=null)
-						method = clazz.getMethod(text, String.class);
-					else
-						method = clazz.getMethod(text, null);
-					
-					Object obj = method.invoke(input);
-					
-					Element ele = element.addElement(temp.getName());
-					ele.addText(String.valueOf(obj));
-					
-					if(result != null && result.equals("number")){
-						ele.addAttribute("type", "number");
-					}
-				}
+		try{
+			for(int i=0;i<list.size();i++){
+				Element temp = list.get(i);
 				
-				element.remove(temp);
+				if(temp.elements().size() > 0)
+					processElement(temp);
+				
+				String param = temp.attributeValue("param");
+				String result = temp.attributeValue("result");
+				String text = temp.getTextTrim();
+				
+				if(param != null){
+					if(param.equals("input")){
+						logger.info("处理INPUT参数，从OUTPUT中得到数据");
+						Map<String,Object> map = OutputUtil.getOutput();
+						Element newEle = element.addElement(temp.getName());
+						Object obj = map.get(text);
+						if(obj == null)
+							newEle.addText("");
+						else
+							newEle.addText(obj.toString());
+						
+						if(result != null && result.equals("number")){
+							newEle.addAttribute("type", "number");
+						}
+					}
+					else if (param.equals("func")){
+						logger.info("处理FUNC参数，动态生成数据");
+						Class clazz = Class.forName(PropUtil.getFuncClass());
+						String input = temp.attributeValue("input");
+						Method method = null;
+						Object obj = null;
+						if(input!=null){
+							method = clazz.getMethod(text, String.class);
+							obj = method.invoke(null,input);
+						}
+						else{
+							method = clazz.getMethod(text, null);
+							obj = method.invoke(null);
+						}
+						
+						
+						Element ele = element.addElement(temp.getName());
+						ele.addText(String.valueOf(obj));
+						
+						if(result != null && result.equals("number")){
+							ele.addAttribute("type", "number");
+						}
+					}
+					
+					element.remove(temp);
+				}
 			}
+		}
+		catch(Exception e){
+			logger.error("处理数据结点时失败：" + e.getMessage());
+			throw new Exception("处理数据结点时失败：" + e.getMessage());
 		}
 	}
 	
@@ -85,7 +104,7 @@ public class DataHelper {
 		return this.ele;
 	}
 	
-	public String getJsonBody(){
+	public String getJsonBody() throws Exception{
 		XML2Json xj = new XML2Json();
 		return xj.getJSONObject(this.ele).toString();
 	}

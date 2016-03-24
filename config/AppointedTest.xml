@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AllTests>
 	<SequenceTests>
-		<SequenceTest name='queryAndmodifyApp'>
-			<step stepid='1' model='lg' output='token'>lg</step>		
-			<step stepid='2' model='queryAppList'>queryAppList</step>
+		<SequenceTest name='setTag'>
+			<step stepid='1' model='connect'>oldUserLoginWithUID</step>		
+			<step stepid='2' model='tag'>setLongTag</step>		
+	
+					
 		</SequenceTest>
 	</SequenceTests>
 </AllTests>

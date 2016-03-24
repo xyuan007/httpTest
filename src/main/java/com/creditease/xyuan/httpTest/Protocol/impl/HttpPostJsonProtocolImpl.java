@@ -13,11 +13,12 @@ import org.apache.http.util.EntityUtils;
 
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.OutputUtil;
 import com.creditease.xyuan.httpTest.Util.HttpClientUtil;
 
 public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
-
+	private static MyLog loger = MyLog.getLoger();
 
 	public String httpExecute(String url, Map<String, String> headers,
 			Object body) throws Exception {
@@ -26,14 +27,22 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 		HttpPost post = new HttpPost(url);
 		
 		try{
+			//设置HEADER
+			loger.info("设置HTTP的HEADER信息");
 			post.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=utf-8");  
 			if (headers != null) {  
 	             for (Map.Entry<String,String> entry : headers.entrySet()) { 
 	                 post.addHeader(entry.getKey(), entry.getValue());  
 	             }  
 	      	}
+			
+			//设置ENTITY
+			loger.info("设置HTTP的ENTITY");
 			StringEntity entity = new StringEntity((String)body,"utf-8");  
 			post.setEntity(entity);
+			
+			//执行并返回结果
+			loger.info("执行并返回结果，记录下调用时间和返回码");
 			Date d1 = new Date();
 			CloseableHttpResponse response = httpclient.execute(post);
 			long time = new Date().getTime() - d1.getTime();
