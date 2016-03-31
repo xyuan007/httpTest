@@ -22,7 +22,10 @@
 	<model name='tag'>
 		<protocol>socketjson</protocol>
 	</model>	
+	<model name='clearTag'>
+		<protocol>socketjson</protocol>
+	</model>		
 	<model name='alias'>
 		<protocol>socketjson</protocol>
-	</model>	
+	</model>
 </Config>

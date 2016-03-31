@@ -20,4 +20,12 @@ public class MyXMLUtil {
 		}
 		return doc.getRootElement();  
 	}
+	
+	public static void main(String[] args){
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<100;i++){
+			sb.append("tag"+i+",");
+		}
+		System.out.println(sb.toString());
+	}
 }

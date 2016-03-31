@@ -81,7 +81,6 @@ public class DataHelper {
 							obj = method.invoke(null);
 						}
 						
-						
 						Element ele = element.addElement(temp.getName());
 						ele.addText(String.valueOf(obj));
 						
@@ -96,6 +95,7 @@ public class DataHelper {
 		}
 		catch(Exception e){
 			logger.error("处理数据结点时失败：" + e.getMessage());
+			e.printStackTrace();
 			throw new Exception("处理数据结点时失败：" + e.getMessage());
 		}
 	}

@@ -13,8 +13,16 @@ import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 //XML转为JSON
 public class XML2Json {
 	private static MyLog loger = MyLog.getLoger();
+	
 	private JSONArray getArray(String str){
+		if(str.equals("null"))
+			return null;
+		
+		if(str.length() == 0)
+			return new JSONArray();
+		
 		JSONArray json = null;
+
 		String[] array = str.split(",");
 		
 		json = new JSONArray();
@@ -50,15 +58,19 @@ public class XML2Json {
 						map.put(temp.getName(), num);
 					}
 					else if(type.equals("string")){
-						map.put(temp.getName(), temp.getTextTrim());
+						if(temp.getTextTrim().equals("null"))
+							map.put(temp.getName(), null);
+						else
+							map.put(temp.getName(), temp.getTextTrim());
 					}
 					else if(type.equals("array")){
-						map.put(temp.getName(),getArray(temp.getTextTrim()));
+							map.put(temp.getName(),getArray(temp.getTextTrim()));
 					}
 				}
 			}
 		}catch(Exception ex){
-			loger.error("元素转JSON时发生异常 "+ex.getMessage());
+			loger.error("元素转JSON时发生异常 ");
+			ex.printStackTrace();
 			throw new Exception("元素转JSON时发生异常 ");
 		}
 				

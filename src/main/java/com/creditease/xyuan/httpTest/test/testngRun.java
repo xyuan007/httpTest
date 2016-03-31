@@ -24,11 +24,17 @@ public class testngRun{
 	public void runTestCase(Element config) throws Exception {
 		String protocol = config.elementText("protocol");
 		
-		//不同协议执行不同流程
-		if(protocol.contains("http"))
-			HttpProcesser.execute(config);
-		else if(protocol.contains("socket"))
-			SocketProcesser.execute(config);
-	
+		try{
+			//不同协议执行不同流程
+			if(protocol.contains("http"))
+				HttpProcesser.execute(config);
+			else if(protocol.contains("socket"))
+				SocketProcesser.execute(config);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			throw new Exception(ex.getMessage());
+		}
+		
 	} 
 }

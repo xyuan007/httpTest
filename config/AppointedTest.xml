@@ -2,10 +2,8 @@
 <AllTests>
 	<SequenceTests>
 		<SequenceTest name='setTag'>
-			<step stepid='1' model='connect'>oldUserLoginWithUID</step>		
-			<step stepid='2' model='tag'>setLongTag</step>		
-	
-					
+			<step stepid='1' model='connect'>newUserLogin</step>		
+			<step stepid='2' model='alias'>setAliasByInput</step>	
 		</SequenceTest>
 	</SequenceTests>
 </AllTests>

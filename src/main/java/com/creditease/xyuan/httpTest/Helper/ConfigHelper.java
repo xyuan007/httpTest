@@ -18,18 +18,14 @@ public class ConfigHelper {
 	Element ele = null;
 	
 	public ConfigHelper() throws Exception {
-		try{
-			this.projectName = PropUtil.getProjectName();
-			String configFile = String.format("config\\%s.xml", this.projectName);
-			Element root = MyXMLUtil.getRootElement(configFile);
-			
-			ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getModelName()));
-			if(ele == null){
-				loger.error("模块：" + BizDataUtil.getModelName() + "未进行配置");
-				throw new Exception("模块：" + BizDataUtil.getModelName() + "未进行配置");
-			}
-		}catch(Exception e){loger.error("处理配置数据时失败：" + e.getMessage());
-			throw new Exception("处理配置数据时失败：" + e.getMessage());
+		this.projectName = PropUtil.getProjectName();
+		String configFile = String.format("config\\%s.xml", this.projectName);
+		Element root = MyXMLUtil.getRootElement(configFile);
+		
+		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getModelName()));
+		if(ele == null){
+			loger.error("模块：" + BizDataUtil.getModelName() + "未进行配置");
+			throw new Exception("模块：" + BizDataUtil.getModelName() + "未进行配置");
 		}
 	}
 	

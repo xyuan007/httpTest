@@ -7,4 +7,5 @@ ProxyPort=8888
 RunClass=com.creditease.xyuan.httpTest.test.testngRun
 FuncClass=com.creditease.xyuan.httpTest.Util.FuncUtil
 SocketIP=10.36.40.82
+#SocketIP=10.36.41.109
 SocketPort=5449
