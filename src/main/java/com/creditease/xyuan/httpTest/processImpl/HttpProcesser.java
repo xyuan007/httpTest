@@ -1,4 +1,4 @@
-package com.creditease.xyuan.httpTest.process;
+package com.creditease.xyuan.httpTest.processImpl;
 
 import org.dom4j.Element;
 
@@ -10,11 +10,12 @@ import com.creditease.xyuan.httpTest.Protocol.impl.HttpPostJsonProtocolImpl;
 import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.object.ConfigData;
+import com.creditease.xyuan.httpTest.process.IExecute;
 
-public class HttpProcesser {
+public class HttpProcesser implements IExecute{
 	private static MyLog loger = MyLog.getLoger();
 	
-	public static void execute(Element config) throws Exception{
+	public void execute(Element config) throws Exception{
 		String response = null;
 		IHttpProtocol http = null;
 		

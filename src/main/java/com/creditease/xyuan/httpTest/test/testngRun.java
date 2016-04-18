@@ -5,8 +5,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
 import com.creditease.xyuan.httpTest.Util.MyLog;
-import com.creditease.xyuan.httpTest.process.HttpProcesser;
-import com.creditease.xyuan.httpTest.process.SocketProcesser;
+import com.creditease.xyuan.httpTest.process.ExecuteFactory;
+import com.creditease.xyuan.httpTest.processImpl.HttpProcesser;
+import com.creditease.xyuan.httpTest.processImpl.SocketProcesser;
 
 public class testngRun{
 	private static MyLog  loger = MyLog.getLoger();
@@ -26,10 +27,7 @@ public class testngRun{
 		
 		try{
 			//不同协议执行不同流程
-			if(protocol.contains("http"))
-				HttpProcesser.execute(config);
-			else if(protocol.contains("socket"))
-				SocketProcesser.execute(config);
+			ExecuteFactory.createExecute(protocol, config);
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
