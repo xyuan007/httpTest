@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [TmpSuite]">
+  <test name="TmpTest(failed)">
+    <classes>
+      <class name="com.creditease.xyuan.httpTest.test.testngRun">
+        <methods>
+          <include name="runTestCase" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.creditease.xyuan.httpTest.test.testngRun -->
+    </classes>
+  </test> <!-- TmpTest(failed) -->
+</suite> <!-- Failed suite [TmpSuite] -->

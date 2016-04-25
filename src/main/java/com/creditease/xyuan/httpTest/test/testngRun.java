@@ -24,6 +24,7 @@ public class testngRun{
 	@Test(dataProvider = "test")
 	public void runTestCase(Element config) throws Exception {
 		String protocol = config.elementText("protocol");
+		loger.info("协议：" + protocol);
 		
 		try{
 			//不同协议执行不同流程

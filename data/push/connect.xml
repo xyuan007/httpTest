@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite>
+	<TestCase name='newUserLogin'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>login</reqType>
+			<appKey>8aa4a89a52810799015281c6e36e0009|com.test.pushdemo</appKey>
+					<!-- 	<appKey>8aa4a89a535a06eb01535f6104e80005|shenyun.androiddemo</appKey> -->
+		</header>
+		<body>
+			<uid></uid>
+			<imei param='func' input='15'>getRandomNumber</imei>
+			<serialNum param='func' input='16'>getRandomNumber</serialNum>
+			<mac param='func'>getRandomMac</mac>
+			<platform>android</platform>
+			<devMode>hw-h601</devMode>
+			<osVersion>4.2.2</osVersion>
+		</body>
+	</TestCase>
+	<TestCase name='oldUserLoginWithUID'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>login</reqType>
+			<appKey>8aa4a89a52810799015281c6e36e0009|com.test.pushdemo</appKey>
+		</header>
+		<body>
+			<uid>a2c3a9342ec8496f51e17771fdb8b01e</uid>
+			<imei>867628025939315</imei>
+			<serialNum>MYV0215A13000951</serialNum>
+			<mac>ac:cf:85:47:6c:e4</mac>
+			<platform>android</platform>
+			<devMode>PLK-TL01H</devMode>
+			<osVersion>5.0.2</osVersion>
+		</body>
+	</TestCase>	
+	<TestCase name='oldUserLoginWithoutUID'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>login</reqType>
+			<appKey>8aa4a89a52810799015281c6e36e0009|com.test.pushdemo</appKey>
+		</header>
+		<body>
+			<uid></uid>
+			<imei>867628025939315</imei>
+			<serialNum>MYV0215A13000951</serialNum>
+			<mac>ac:cf:85:47:6c:e4</mac>
+			<platform>android</platform>
+			<devMode>PLK-TL01H</devMode>
+			<osVersion>5.0.2</osVersion>
+		</body>
+	</TestCase>		
+</TestSuite>

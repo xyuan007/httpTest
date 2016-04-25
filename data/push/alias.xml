@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite>
+	<TestCase name='setAlias'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>alias</reqType>
+			<uid>d2748ea7d6fe96136259e0c4e4879f36</uid>
+		</header>
+		<body>
+			<alias>别名test_123</alias>
+		</body>
+	</TestCase>
+	<TestCase name='setLongAlias'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>alias</reqType>
+			<uid>d2748ea7d6fe96136259e0c4e4879f36</uid>
+		</header>
+		<body>
+			<alias>超过了最长字符数超过了最长字符数超过了最长</alias>
+		</body>
+	</TestCase>		
+	<TestCase name='setNullAlias'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>alias</reqType>
+			<uid>d2748ea7d6fe96136259e0c4e4879f36</uid>
+		</header>
+		<body>
+			<alias>null</alias>
+		</body>
+	</TestCase>	
+	<TestCase name='setEmptyAlias'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>alias</reqType>
+			<uid>d2748ea7d6fe96136259e0c4e4879f36</uid>
+		</header>
+		<body>
+			<alias></alias>
+		</body>
+	</TestCase>		
+	<TestCase name='setAliasByInput'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>alias</reqType>
+			<uid param='input'>uid</uid>
+		</header>
+		<body>
+			<alias>别名input_123</alias>
+		</body>
+	</TestCase>	
+		
+</TestSuite>

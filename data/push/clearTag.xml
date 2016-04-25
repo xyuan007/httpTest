@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite>
+	<TestCase name='cleartag'>
+		<header>
+			<reqId>123</reqId>
+			<reqType>clearTag</reqType>
+			<uid>d2748ea7d6fe96136259e0c4e4879f36</uid>
+		</header>
+	</TestCase>	
+</TestSuite>

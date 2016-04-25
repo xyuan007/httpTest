@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite>
+	<TestCase name='lg'>
+		<user_name>test@sohu.com</user_name>
+		<pswd>d27d320c27c3033b7883347d8beca317</pswd>
+		<ip>210.22.89.58</ip>			
+		<verifyCode>1111</verifyCode>
+		<random>8CamVKPYwdwHQxjj8WVAEg9SAKDtw958</random>	
+	</TestCase>
+</TestSuite>

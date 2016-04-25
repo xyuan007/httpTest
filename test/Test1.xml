@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllTests>
+	<SingleTest>
+		<!-- <Test model='modifyApp'>modifyApp</Test> -->
+		<Test model='queryAppList'>queryAppList</Test>	
+		<Test model='lg'>lg</Test>	
+	</SingleTest>
+	<SequenceTests>
+		<SequenceTest name='queryAndmodifyApp'>
+			<step stepid='1' model='lg'  output='token'>lg</step>		
+			<step stepid='2' output='user_id' model='queryAppList'>queryAppList</step>
+		</SequenceTest>
+	</SequenceTests>
+</AllTests>
