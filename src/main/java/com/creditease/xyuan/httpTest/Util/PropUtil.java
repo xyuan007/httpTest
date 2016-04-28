@@ -1,7 +1,6 @@
 package com.creditease.xyuan.httpTest.Util;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 

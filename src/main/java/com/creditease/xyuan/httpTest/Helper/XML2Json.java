@@ -6,9 +6,7 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.dom4j.Element;
-
 import com.creditease.xyuan.httpTest.Util.MyLog;
-import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 
 //XML转为JSON
 public class XML2Json {

@@ -1,13 +1,12 @@
 package com.creditease.xyuan.httpTest.processImpl;
 
 import org.dom4j.Element;
-
 import com.creditease.xyuan.httpTest.Helper.AssertHelper;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import com.creditease.xyuan.httpTest.Protocol.ISocketProtocol;
 import com.creditease.xyuan.httpTest.Protocol.impl.SocketJsonProtocol;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.object.ConfigData;
 import com.creditease.xyuan.httpTest.process.IExecute;
@@ -23,11 +22,11 @@ public class SocketProcesser implements IExecute{
 		try{
 			loger.info("开始执行SOCKET处理流程");
 			//配置数据
-			loger.info("取得配置数据数据" + BizDataUtil.getModelName());
+			loger.info("取得配置数据数据" + PublicDataHelper.getInstance().getCasedata().getModelName());
 			cd = ConfigHelper.getConfigData(config);
 			
 			//业务数据
-			loger.info("取得业务数据:" + BizDataUtil.getCaseName());
+			loger.info("取得业务数据:" + PublicDataHelper.getInstance().getCasedata().getCaseName());
 			dh = new DataHelper();
 			String body = dh.getJsonBody();
 			

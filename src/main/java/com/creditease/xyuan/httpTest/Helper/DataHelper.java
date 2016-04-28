@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import org.dom4j.Element;
-import org.testng.log4testng.Logger;
-
 import com.creditease.xyuan.httpTest.Util.*;
 
 public class DataHelper {
@@ -15,14 +13,14 @@ public class DataHelper {
 	
 	public DataHelper() throws Exception {
 		this.projectName = PropUtil.getProjectName();
-		String configFile = String.format("data\\%s\\%s.xml", this.projectName,BizDataUtil.getModelName());
+		String configFile = String.format("data\\%s\\%s.xml", this.projectName,PublicDataHelper.getInstance().getCasedata().getModelName());
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
-		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",BizDataUtil.getCaseName()));
+		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",PublicDataHelper.getInstance().getCasedata().getCaseName()));
 		
 		if(ele == null){
-			logger.error("数据结点未进行配置，用例名：" + BizDataUtil.getCaseName());
-			throw new Exception("数据结点未进行配置，用例名：" + BizDataUtil.getCaseName());
+			logger.error("数据结点未进行配置，用例名：" + PublicDataHelper.getInstance().getCasedata().getCaseName());
+			throw new Exception("数据结点未进行配置，用例名：" + PublicDataHelper.getInstance().getCasedata().getCaseName());
 		}
 		processElement(ele);
 	}
@@ -54,7 +52,7 @@ public class DataHelper {
 				if(param != null){
 					if(param.equals("input")){
 						logger.info("处理INPUT参数，从OUTPUT中得到数据");
-						Map<String,Object> map = OutputUtil.getOutput();
+						Map<String,Object> map = PublicDataHelper.getInstance().getOutput().getOutput();
 						Element newEle = element.addElement(temp.getName());
 						Object obj = map.get(text);
 						if(obj == null)

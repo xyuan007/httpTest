@@ -1,10 +1,8 @@
 package com.creditease.xyuan.httpTest.Assert;
 
 import net.sf.json.JSONObject;
-
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
-import com.creditease.xyuan.httpTest.Util.OutputUtil;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -27,9 +25,9 @@ public class lg {
 		assertThat((String)data.get("email") , equalTo(dh.getDataByField("email")) ); 
 		
 		//输出
-		if(BizDataUtil.getOutputField() != null){
-			if(BizDataUtil.getOutputField().contains("token")){
-				OutputUtil.setValue("token", data.get("token"));
+		if(PublicDataHelper.getInstance().getCasedata().getOutputField() != null){
+			if(PublicDataHelper.getInstance().getCasedata().getOutputField().contains("token")){
+				PublicDataHelper.getInstance().getOutput().setValue("token", data.get("token"));
 			}
 		}
 	}

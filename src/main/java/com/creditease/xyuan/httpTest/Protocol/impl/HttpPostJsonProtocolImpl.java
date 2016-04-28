@@ -2,7 +2,6 @@ package com.creditease.xyuan.httpTest.Protocol.impl;
 
 import java.util.Date;
 import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -11,10 +10,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
-import com.creditease.xyuan.httpTest.Util.OutputUtil;
 import com.creditease.xyuan.httpTest.Util.HttpClientUtil;
 
 public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
@@ -47,8 +45,8 @@ public class HttpPostJsonProtocolImpl  implements IHttpProtocol {
 			CloseableHttpResponse response = httpclient.execute(post);
 			long time = new Date().getTime() - d1.getTime();
 			
-	        BizDataUtil.setHttpStatus(String.valueOf(response.getStatusLine().getStatusCode()));
-	        BizDataUtil.setHttpInvokeTime(String.valueOf(time));
+			PublicDataHelper.getInstance().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
+			PublicDataHelper.getInstance().getCasedata().setExectime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
 	        res = EntityUtils.toString(resEntity, "utf-8");
 		}

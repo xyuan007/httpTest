@@ -2,17 +2,13 @@ package com.creditease.xyuan.httpTest.Assert;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-
-import org.testng.log4testng.Logger;
-
 import net.sf.json.JSONObject;
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
-import com.creditease.xyuan.httpTest.Util.OutputUtil;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 
 public class connect {
 	private JSONObject header;
 	private JSONObject body;
-	public static Logger logger = Logger.getLogger(connect.class); 
 	
 	public connect(String response) throws Exception{
 		DataHelper dh = new DataHelper();
@@ -26,7 +22,7 @@ public class connect {
 		assertThat((String)header.get("resType") , equalTo("login") ); 
 		assertThat(((String)body.get("uid")).length(), greaterThan(0)); 
 		
-		OutputUtil.setValue("uid", (String)body.get("uid"));
+		PublicDataHelper.getInstance().getOutput().setValue("uid", (String)body.get("uid"));
 	}
 	
 	public void oldUserLoginWithUID() throws Exception{

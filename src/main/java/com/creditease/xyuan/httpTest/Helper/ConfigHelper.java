@@ -4,9 +4,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import org.dom4j.Element;
-import org.testng.log4testng.Logger;
-
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.MyXMLUtil;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
@@ -22,10 +19,10 @@ public class ConfigHelper {
 		String configFile = String.format("config\\%s.xml", this.projectName);
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
-		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",BizDataUtil.getModelName()));
+		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",PublicDataHelper.getInstance().getCasedata().getModelName()));
 		if(ele == null){
-			loger.error("模块：" + BizDataUtil.getModelName() + "未进行配置");
-			throw new Exception("模块：" + BizDataUtil.getModelName() + "未进行配置");
+			loger.error("config文件中，模块：" + PublicDataHelper.getInstance().getCasedata().getModelName() + "未进行配置");
+			throw new Exception("config文件中，模块：" + PublicDataHelper.getInstance().getCasedata().getModelName() + "未进行配置");
 		}
 	}
 	
@@ -80,8 +77,8 @@ public class ConfigHelper {
 			cd.setParams(param);
 		}
 		catch(Exception e){
-			loger.error("获得模块" + BizDataUtil.getModelName() + "的配置数据时出错：" + e.getMessage());
-			throw new Exception("获得模块" + BizDataUtil.getModelName() + "的配置数据时出错：" + e.getMessage());
+			loger.error("获得模块" + PublicDataHelper.getInstance().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
+			throw new Exception("获得模块" + PublicDataHelper.getInstance().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
 		}
 		return cd;
 	}

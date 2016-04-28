@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.creditease.xyuan.httpTest.DAO.ServerDAO">
+    <insert id="newRunReports">
+		insert into api_runreports(day,round,status) values(CURDATE(),#{round},1);
+    </insert>
+
+    <update id="updateRunReports">
+		update api_runreports set apitotal = #{apitotal},success = #{success},fail=#{fail},notrun=#{notrun},status=2 
+		where day=CURDATE() and round=#{round} and status = 1;
+    </update>    
+    
+    <select id="getMaxRound" resultType="int">
+        select IFNULL(max(round),0) from api_runreports where day=NOW()
+    </select>
+    
+    <insert id="newReports">
+		insert into api_detailreports(day,round,apitype,apiname,status,responsecode,message,starttime,endtime,exectime,createtime,sequencename,index) 
+		values(CURDATE(),#{round},#{apitype},#{apiname},#{status},#{responsecode},#{message},#{starttime},#{endtime},#{exectime},NOW(),#{sequencename},#{index});
+    </insert>      
+</mapper>

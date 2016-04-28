@@ -1,13 +1,12 @@
 package com.creditease.xyuan.httpTest.processImpl;
 
 import org.dom4j.Element;
-
 import com.creditease.xyuan.httpTest.Helper.AssertHelper;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
 import com.creditease.xyuan.httpTest.Helper.DataHelper;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import com.creditease.xyuan.httpTest.Protocol.IHttpProtocol;
 import com.creditease.xyuan.httpTest.Protocol.impl.HttpPostJsonProtocolImpl;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.object.ConfigData;
 import com.creditease.xyuan.httpTest.process.IExecute;
@@ -21,11 +20,11 @@ public class HttpProcesser implements IExecute{
 		
 		loger.info("开始执行HTTP处理流程");
 		//配置数据
-		loger.info("取得配置数据数据" + BizDataUtil.getModelName());
+		loger.info("取得配置数据数据" + PublicDataHelper.getInstance().getCasedata().getModelName());
 		ConfigData cd = ConfigHelper.getConfigData(config);
 		
 		//业务数据
-		loger.info("取得业务数据:" + BizDataUtil.getCaseName());
+		loger.info("取得业务数据:" + PublicDataHelper.getInstance().getCasedata().getCaseName());
 		DataHelper dh = new DataHelper();
 		String body = dh.getJsonBody();
 		
@@ -43,7 +42,6 @@ public class HttpProcesser implements IExecute{
 		//验证
 		loger.info("结果验证");
 		AssertHelper.asserting(response);
-		
 		
 		//清理数据
 		dh = null;

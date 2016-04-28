@@ -4,16 +4,15 @@ import org.dom4j.Element;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import com.creditease.xyuan.httpTest.Util.MyLog;
-import com.creditease.xyuan.httpTest.process.ExecuteFactory;
-import com.creditease.xyuan.httpTest.processImpl.HttpProcesser;
-import com.creditease.xyuan.httpTest.processImpl.SocketProcesser;
 
 public class testngRun{
 	private static MyLog  loger = MyLog.getLoger();
 	@DataProvider(name = "test")
 	public Object[][] getData() throws Exception {
 		Element eleConfig = (new ConfigHelper()).getConfigElement();
+		PublicDataHelper.getInstance().getCasedata().setApitype( eleConfig.element("protocol").getTextTrim());
 		loger.info("取得用例配置");
 		
 		return new Object[][] {

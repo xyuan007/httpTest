@@ -1,31 +1,47 @@
-package com.creditease.xyuan.httpTest.processImpl;
+package com.creditease.xyuan.httpTest.test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.dom4j.Element;
 import org.testng.TestNG;
-import org.testng.log4testng.Logger;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
-
-import com.creditease.xyuan.httpTest.Assert.connect;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
+import com.creditease.xyuan.httpTest.Helper.DatabaseHelper;
+import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
+import com.creditease.xyuan.httpTest.POJO.DetailReports;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
 import com.creditease.xyuan.httpTest.Util.TestFileUtil;
+import com.sun.xml.internal.bind.v2.runtime.property.Property;
+import com.sun.xml.internal.fastinfoset.sax.Properties;
 
 public class TestNGProcesser {
 	private static MyLog loger = MyLog.getLoger();
+	private static PublicDataHelper pdh = PublicDataHelper.getInstance();
+	private static int round;
 	
 	public static void main(String[] args) throws Exception{
 		TestNGProcesser pro = new TestNGProcesser();
-		pro.test();
+//		pro.test();
+//		
+		ArrayList  res = new ArrayList();
+		while(true){
+			res.add(new DetailReports());
+		}
 	}
 	
 	public void test() throws Exception{
-		Element eleSingle = null;
 		Element eleSequence = null;
+		
+		//轮次，公共数据初始
+		round = DatabaseHelper.getMaxRound() + 1;
+		DatabaseHelper.newRunReports(round);
+		pdh.initRoundData(round);
 		
 		//取得运行模式
 		loger.info("取得runmode");
@@ -33,32 +49,17 @@ public class TestNGProcesser {
 		
 		loger.info("取得待运行的测试用例");
 		for(String file: files){
-			eleSingle = TestFileUtil.getSingleTests(file);
 			eleSequence = TestFileUtil.getSequenceTests(file);
 			
-//			runSingleTests(eleSingle);
 			runSequenceTests(eleSequence);
 		}
+		
+		int apitotal = PublicDataHelper.getInstance().getRound().getApitotal();
+		int success = PublicDataHelper.getInstance().getRound().getSuccess();
+		int fail = PublicDataHelper.getInstance().getRound().getFail();
+		int notrun = PublicDataHelper.getInstance().getRound().getNotrun();
+		DatabaseHelper.updateRunReports(round, apitotal, success, fail, notrun);
 	}
-	
-//	//运行单个用例
-//	private void runSingleTests(Element eleSingle){
-//		String modelName = null;
-//		//SingleTest的用例执行
-//		if(eleSingle != null){
-//			for(int i=0;i<eleSingle.elements().size();i++){
-//				Element eleCur = (Element) eleSingle.elements().get(i);
-//				modelName  = eleCur.attributeValue("model");
-//				String[] tests = eleCur.getTextTrim().split(",");
-//				
-//				for(int j=0;j<tests.length;j++){
-//					BizDataUtil.init(modelName,tests[j]);
-//					//执行TESTNG CASE
-//					runTestNG();
-//				}
-//			}
-//		}
-//	}
 	
 	//运行有顺序的用例
 	private void runSequenceTests(Element eleSequence){
@@ -77,8 +78,9 @@ public class TestNGProcesser {
 					if(eleStep != null){
 						modelName  = eleStep.attributeValue("model");
 						String caseName = eleStep.getTextTrim();
+						String stepid = eleStep.attributeValue("stepid");
 						
-						BizDataUtil.init(modelName,caseName,eleStep.attributeValue("output"));
+						pdh.initCaseData(modelName, caseName, null, round,seqName,stepid);
 						//执行TESTNG CASE
 						loger.info("TESTNG动态执行用例。模块名：" + modelName + ",用例名称：" + caseName);
 						runTestNG();

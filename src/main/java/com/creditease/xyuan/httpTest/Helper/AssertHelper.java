@@ -2,11 +2,6 @@ package com.creditease.xyuan.httpTest.Helper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-
-import org.testng.log4testng.Logger;
-
-import com.creditease.xyuan.httpTest.Assert.connect;
-import com.creditease.xyuan.httpTest.Util.BizDataUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 
 public class AssertHelper {
@@ -14,8 +9,8 @@ public class AssertHelper {
 	private static String pkgname = "com.creditease.xyuan.httpTest.Assert";
 	
 	public static void asserting(String response) throws Exception {
-		String filename = BizDataUtil.getModelName();
-		String methodname = BizDataUtil.getCaseName();
+		String filename = PublicDataHelper.getInstance().getCasedata().getModelName();
+		String methodname = PublicDataHelper.getInstance().getCasedata().getCaseName();
 		Class clazz;
 		try {
 			logger.info("验证的方法名：" + methodname);
