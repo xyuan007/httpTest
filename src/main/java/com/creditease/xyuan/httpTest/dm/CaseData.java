@@ -16,6 +16,7 @@ public class CaseData {
 	private String outputField;
 	private String sequencename;
 	private String index;
+	private String casetype;
 	
 	public String getSequencename() {
 		return sequencename;
@@ -37,16 +38,23 @@ public class CaseData {
 		
 	}
 	
-	public CaseData(String modelName,String caseName,String apitype,int round,String sequencename,String index){
+	public CaseData(String modelName,String caseName,String apitype,int round,String sequencename,String index,String casetype){
 		this.round = round;
 		this.caseName = caseName;
 		this.apitype = apitype;
 		this.modelName = modelName;
 		this.sequencename = sequencename;
 		this.index = index;
+		this.casetype = casetype;
 	}
 	
-	
+	public String getCasetype() {
+		return casetype;
+	}
+
+	public void setCasetype(String casetype) {
+		this.casetype = casetype;
+	}
 
 	public int getRound() {
 		return round;

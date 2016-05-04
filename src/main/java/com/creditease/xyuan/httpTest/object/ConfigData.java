@@ -5,9 +5,9 @@ import java.util.Map;
 public class ConfigData {
 	String protocol = null;
 	String url = null;
+	String dataformat = null;
 	Map<String,String> headers = null;
 	Map<String,String> params = null;
-	
 	
 	public String getProtocol() {
 		return protocol;

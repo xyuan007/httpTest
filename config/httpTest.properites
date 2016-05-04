@@ -1,4 +1,4 @@
-RunMode=3
+RunMode=debug
 TestFile=Test1.xml,Test2.xml
 TestProject=push
 HttpProxy=false
@@ -9,3 +9,4 @@ FuncClass=com.creditease.xyuan.httpTest.Util.FuncUtil
 SocketIP=10.36.40.82
 #SocketIP=10.36.41.109
 SocketPort=5449
+CharSet=UTF-8

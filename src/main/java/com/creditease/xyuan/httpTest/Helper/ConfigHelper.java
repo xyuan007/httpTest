@@ -19,10 +19,10 @@ public class ConfigHelper {
 		String configFile = String.format("config\\%s.xml", this.projectName);
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
-		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",PublicDataHelper.getInstance().getCasedata().getModelName()));
+		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",PublicDataHelper.getIns().getCasedata().getModelName()));
 		if(ele == null){
-			loger.error("config文件中，模块：" + PublicDataHelper.getInstance().getCasedata().getModelName() + "未进行配置");
-			throw new Exception("config文件中，模块：" + PublicDataHelper.getInstance().getCasedata().getModelName() + "未进行配置");
+			loger.error("config文件中，模块：" + PublicDataHelper.getIns().getCasedata().getModelName() + "未进行配置");
+			throw new Exception("config文件中，模块：" + PublicDataHelper.getIns().getCasedata().getModelName() + "未进行配置");
 		}
 	}
 	
@@ -77,8 +77,8 @@ public class ConfigHelper {
 			cd.setParams(param);
 		}
 		catch(Exception e){
-			loger.error("获得模块" + PublicDataHelper.getInstance().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
-			throw new Exception("获得模块" + PublicDataHelper.getInstance().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
+			loger.error("获得模块" + PublicDataHelper.getIns().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
+			throw new Exception("获得模块" + PublicDataHelper.getIns().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
 		}
 		return cd;
 	}

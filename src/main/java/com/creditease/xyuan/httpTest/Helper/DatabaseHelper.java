@@ -62,8 +62,8 @@ public class DatabaseHelper {
 	}
 	
 	public static void newReports(int round,String apitype,String apiname,String message,Timestamp starttime,
-			Timestamp endtime,String exectime,String responsecode,String status,String sequencename,String index){
-		serverDao.newReports(round, apitype, apiname, message, starttime, endtime, exectime, responsecode, status,sequencename,index);
+			Timestamp endtime,String exectime,String responsecode,String status,String sequencename,String index,String casetype){
+		serverDao.newReports(round, apitype, apiname, message, starttime, endtime, exectime, responsecode, status,sequencename,index,casetype);
 		session.commit();
 	}
 	

@@ -59,6 +59,10 @@ public class PropUtil
     	return getProp("FuncClass");
     }
     
+    public static String getCharSet(){
+    	return getProp("CharSet");
+    }
+    
     public static int getSocketPort(){
     	return Integer.parseInt(getProp("SocketPort"));
     }

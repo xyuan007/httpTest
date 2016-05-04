@@ -15,7 +15,7 @@
     </select>
     
     <insert id="newReports">
-		insert into api_detailreports(day,round,apitype,apiname,status,responsecode,message,starttime,endtime,exectime,createtime,sequencename,index) 
-		values(CURDATE(),#{round},#{apitype},#{apiname},#{status},#{responsecode},#{message},#{starttime},#{endtime},#{exectime},NOW(),#{sequencename},#{index});
+		insert into api_detailreports(day,round,apitype,apiname,status,responsecode,message,starttime,endtime,exectime,createtime,sequencename,index,casetype) 
+		values(CURDATE(),#{round},#{apitype},#{apiname},#{status},#{responsecode},#{message},#{starttime},#{endtime},#{exectime},NOW(),#{sequencename},#{index},#{casetype});
     </insert>      
 </mapper>

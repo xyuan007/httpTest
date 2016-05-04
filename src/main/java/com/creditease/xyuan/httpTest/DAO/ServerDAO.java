@@ -14,6 +14,6 @@ public interface ServerDAO {
 	public void newReports(@Param("round")int round,@Param("apitype")String apitype,@Param("apiname")String apiname,
 			@Param("message")String message,@Param("starttime")Timestamp starttime,@Param("endtime")Timestamp endtime,
 			@Param("exectime")String exectime,@Param("responsecode")String responsecode,@Param("status")String status,
-			@Param("sequencename")String sequencename,@Param("index")String index);
+			@Param("sequencename")String sequencename,@Param("index")String index,@Param("casetype")String casetype);
 	
 }

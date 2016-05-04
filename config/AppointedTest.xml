@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AllTests>
 	<SequenceTests>
-		<SequenceTest name='setTag'>
-			<step stepid='1' model='connect'>newUserLogin</step>		
-			<step stepid='2' model='alias'>setAliasByInput</step>	
+		<SequenceTest index='1' name='newsmth'>
+			<pre stepid='1' model='newsmth'>pre1</pre>
+			<pre stepid='2' model='newsmth'>pre2</pre>			
+			<test stepid='1' model='newsmth'>front</test>	
+			<test stepid='2' model='newsmth'>back</test>				
+			<after stepid='1' model=''>after1</after>
+			<after stepid='2' model=''>after2</after>			
 		</SequenceTest>
 	</SequenceTests>
 </AllTests>

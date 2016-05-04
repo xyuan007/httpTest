@@ -5,7 +5,7 @@
     <classes>
       <class name="com.creditease.xyuan.httpTest.test.testngRun">
         <methods>
-          <include name="runTestCase" invocation-numbers="0"/>
+          <include name="runTestCase"/>
         </methods>
       </class> <!-- com.creditease.xyuan.httpTest.test.testngRun -->
     </classes>

@@ -18,25 +18,28 @@ public class TestListener implements ITestListener  {
 			newDetailReports(result,"success");
 		} catch (Exception e) {
 		}finally{
-			PublicDataHelper.getInstance().getRound().incSuccess();
+			PublicDataHelper.getIns().getRound().incSuccess();
 		}
 	}
 
 	public void onTestFailure(ITestResult result) {
 		try {
+			PublicDataHelper.getIns().setRunFlag(false);
 			newDetailReports(result,"fail");
 		} catch (Exception e) {
 		}finally{
-			PublicDataHelper.getInstance().getRound().incFail();
+			PublicDataHelper.getIns().getRound().incFail();
 		}
 	}
 
 	public void onTestSkipped(ITestResult result) {
 		try {
+			//运行标志设为FALSE
+			PublicDataHelper.getIns().setRunFlag(false);
 			newDetailReports(result,"notrun");
 		} catch (Exception e) {
 		}finally{
-			PublicDataHelper.getInstance().getRound().incNotrun();
+			PublicDataHelper.getIns().getRound().incNotrun();
 		}
 	}
 
@@ -58,18 +61,19 @@ public class TestListener implements ITestListener  {
 	}
 	
 	private void newDetailReports(ITestResult result,String status) throws Exception{
-		int round = PublicDataHelper.getInstance().getCasedata().getRound();
-		String sequencename = PublicDataHelper.getInstance().getCasedata().getSequencename();
-		String index = PublicDataHelper.getInstance().getCasedata().getIndex();
-		String apitype = PublicDataHelper.getInstance().getCasedata().getApitype();
-		String apiname = PublicDataHelper.getInstance().getCasedata().getCaseName();
-		String responsecode = PublicDataHelper.getInstance().getCasedata().getResponsecode();
+		int round = PublicDataHelper.getIns().getCasedata().getRound();
+		String sequencename = PublicDataHelper.getIns().getCasedata().getSequencename();
+		String index = PublicDataHelper.getIns().getCasedata().getIndex();
+		String apitype = PublicDataHelper.getIns().getCasedata().getApitype();
+		String apiname = PublicDataHelper.getIns().getCasedata().getCaseName();
+		String responsecode = PublicDataHelper.getIns().getCasedata().getResponsecode();
 		String message = "";
-		String exectime = PublicDataHelper.getInstance().getCasedata().getExectime();
+		String exectime = PublicDataHelper.getIns().getCasedata().getExectime();
+		String casetype = PublicDataHelper.getIns().getCasedata().getCasetype();
 		Timestamp starttime = new Timestamp( result.getStartMillis());
 		Timestamp endtime = new Timestamp(result.getEndMillis());
 		
-		DatabaseHelper.newReports(round, apitype, apiname, message, starttime, endtime, exectime, responsecode, status, sequencename, index);
+		DatabaseHelper.newReports(round, apitype, apiname, message, starttime, endtime, exectime, responsecode, status, sequencename, index,casetype);
 	}
 
 }

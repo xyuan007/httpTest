@@ -25,9 +25,9 @@ public class lg {
 		assertThat((String)data.get("email") , equalTo(dh.getDataByField("email")) ); 
 		
 		//输出
-		if(PublicDataHelper.getInstance().getCasedata().getOutputField() != null){
-			if(PublicDataHelper.getInstance().getCasedata().getOutputField().contains("token")){
-				PublicDataHelper.getInstance().getOutput().setValue("token", data.get("token"));
+		if(PublicDataHelper.getIns().getCasedata().getOutputField() != null){
+			if(PublicDataHelper.getIns().getCasedata().getOutputField().contains("token")){
+				PublicDataHelper.getIns().getOutput().setValue("token", data.get("token"));
 			}
 		}
 	}

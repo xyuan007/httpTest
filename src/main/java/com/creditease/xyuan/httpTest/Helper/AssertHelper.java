@@ -9,8 +9,8 @@ public class AssertHelper {
 	private static String pkgname = "com.creditease.xyuan.httpTest.Assert";
 	
 	public static void asserting(String response) throws Exception {
-		String filename = PublicDataHelper.getInstance().getCasedata().getModelName();
-		String methodname = PublicDataHelper.getInstance().getCasedata().getCaseName();
+		String filename = PublicDataHelper.getIns().getCasedata().getModelName();
+		String methodname = PublicDataHelper.getIns().getCasedata().getCaseName();
 		Class clazz;
 		try {
 			logger.info("验证的方法名：" + methodname);

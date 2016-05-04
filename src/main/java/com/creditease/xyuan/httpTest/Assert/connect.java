@@ -22,7 +22,7 @@ public class connect {
 		assertThat((String)header.get("resType") , equalTo("login") ); 
 		assertThat(((String)body.get("uid")).length(), greaterThan(0)); 
 		
-		PublicDataHelper.getInstance().getOutput().setValue("uid", (String)body.get("uid"));
+		PublicDataHelper.getIns().getOutput().setValue("uid", (String)body.get("uid"));
 	}
 	
 	public void oldUserLoginWithUID() throws Exception{
