@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c2f66d2a-d2a9-4a26-8798-82f16d477d12">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="New Dataset 1" uuid="8e2eb652-0597-4aae-ba7d-5262b48b222b">
+		<queryString language="SQL">
+			<![CDATA[select * from  api_detailreports]]>
+		</queryString>
+		<field name="day" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="round" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="casetype" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="sequencename" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="index" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="apitype" class="java.lang.String">
+			<fieldDescription><![CDATA[http,socket...........]]></fieldDescription>
+		</field>
+		<field name="apiname" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="status" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="responsecode" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="message" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="starttime" class="java.sql.Timestamp">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="endtime" class="java.sql.Timestamp">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="exectime" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Administrator.20160229-115937\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="round" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{round}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="day" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{day}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  day,round,apitotal,success,fail,notrun from  api_runreports  where day = $P{day} and round = $P{round};]]>
+	</queryString>
+	<field name="day" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="round" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apitotal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="success" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fail" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="notrun" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="day">
+		<groupExpression><![CDATA[$F{day}]]></groupExpression>
+		<groupHeader>
+			<band height="34">
+				<staticText>
+					<reportElement style="Column header" x="320" y="9" width="159" height="22" forecolor="#00FF00" uuid="82619064-4709-48b7-b098-aa156688d8db"/>
+					<textElement>
+						<font size="18" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Success]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="479" y="9" width="159" height="22" forecolor="#FF0000" uuid="ab52d244-4ae7-4ce0-ab90-c7e97dcf0e14"/>
+					<textElement>
+						<font size="18" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Failure]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="636" y="9" width="159" height="22" forecolor="#0000FF" uuid="78edfa7c-5056-40fa-9e18-4fd8c8686529"/>
+					<textElement>
+						<font size="18" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[NoRun]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="161" y="9" width="159" height="22" forecolor="#000000" uuid="6f3d2ad7-85dd-49f5-8a22-0642af6683c8"/>
+					<textElement>
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="2" y="9" width="159" height="22" forecolor="#000000" uuid="49b55377-dbcf-4e11-95e3-98f7ce10826a"/>
+					<textElement>
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Round]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="daygroup">
+		<groupExpression><![CDATA[$F{day}]]></groupExpression>
+		<groupHeader>
+			<band height="12"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="795" height="66" backcolor="#000000" uuid="7d4fe0d2-b4e0-4502-ab3e-dfe6595afc85"/>
+				<staticText>
+					<reportElement style="Title" x="2" y="0" width="511" height="66" uuid="a1930892-b87e-4e15-876b-97847199f630"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Test Report]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="795" height="32" forecolor="#000000" backcolor="#CC0000" uuid="e824ec52-5d3f-4359-97fd-d3d45cedb844"/>
+				<textField pattern="EEEEE dd MMMMM">
+					<reportElement x="636" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="9cac5aa6-eb60-4221-90e2-50adafbcb996"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="10" width="789" height="22" forecolor="#B89F7D" backcolor="#000000" uuid="5f18c786-2a2f-4b30-9f54-616a7245d3cd"/>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="SubTitle" x="0" y="8" width="791" height="24" forecolor="#FFFFFF" uuid="372ed1f9-1400-4609-b328-e9c19719528d"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{day}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="76bda13d-d5d5-4341-aeba-42551221e481"/>
+				<textField isStretchWithOverflow="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+					<reportElement style="Detail" positionType="Float" x="318" y="0" width="159" height="18" forecolor="#00FF00" uuid="eb63bfb0-e81b-4b8b-92f6-10d8fbd27feb"/>
+					<textElement>
+						<font size="14" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{success}]]></textFieldExpression>
+					<hyperlinkReferenceExpression><![CDATA["success.html"]]></hyperlinkReferenceExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+					<reportElement style="Detail" positionType="Float" x="477" y="0" width="159" height="18" forecolor="#FF0000" uuid="45bad413-81d4-4e97-bd6c-1bb86b776ad2"/>
+					<textElement>
+						<font size="14" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fail}]]></textFieldExpression>
+					<hyperlinkReferenceExpression><![CDATA["failure.html"]]></hyperlinkReferenceExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+					<reportElement style="Detail" positionType="Float" x="636" y="0" width="159" height="18" forecolor="#0000FF" uuid="b68f7da4-dc7b-496b-9ae2-3a6842d1d0aa"/>
+					<textElement>
+						<font size="14" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{notrun}]]></textFieldExpression>
+					<hyperlinkReferenceExpression><![CDATA["norun.html"]]></hyperlinkReferenceExpression>
+				</textField>
+				<elementGroup>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" positionType="Float" x="2" y="0" width="159" height="18" uuid="9e51f3f9-6993-4bac-ae2e-b58b4fc204f5"/>
+						<textElement>
+							<font size="14"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{round}]]></textFieldExpression>
+					</textField>
+				</elementGroup>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="161" y="0" width="159" height="18" uuid="6a58017e-808f-4d79-b58b-5ec32156a70d"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{apitotal}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="536ae52c-94ea-4772-9040-d38ce87bf9e2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
