@@ -34,14 +34,16 @@ public class httpgetProcesser implements IExecute{
 		
 		//业务数据
 		loger.info("取得业务数据:" + PublicDataHelper.getIns().getCasedata().getCaseName());
-		DataHelper dh = new DataHelper();
-		
 		itd = new GetData();
-		String body = itd.getCaseData(null, dh.getDataElement());
+		String body = (String)itd.getCaseData(config);
+		
+		String url = cd.getUrl();
+		if(body != null && body.length() > 0)
+			url = url + body;
 		
 		//执行
 		loger.info("执行HTTP请求");
-		response = httpExecute(cd.getUrl(), cd.getHeaders(), body);
+		response = httpExecute(url, cd.getHeaders());
 		
 		System.out.println(body);
 		System.out.println(response);
@@ -51,12 +53,10 @@ public class httpgetProcesser implements IExecute{
 			AssertHelper.asserting(response);
 		
 		//清理数据
-		dh = null;
 		cd = null;
 	}
 	
-	private String httpExecute(String url, Map<String, String> headers,
-			Object body) throws Exception {
+	private String httpExecute(String url, Map<String, String> headers) throws Exception {
 		String res = null;
 		CloseableHttpClient httpclient = HttpClientUtil.getClient();
 		HttpGet get = new HttpGet(url);
@@ -81,7 +81,9 @@ public class httpgetProcesser implements IExecute{
 	        HttpEntity resEntity = response.getEntity();
 	        res = EntityUtils.toString(resEntity, PropUtil.getCharSet());
 		}
-		catch(Exception ex){}
+		catch(Exception ex){
+			throw new Exception(ex);
+		}
 		finally{
 			get.releaseConnection();
 		}

@@ -1,4 +1,4 @@
-log4j.rootCategory=info,stdout 
+log4j.rootCategory=DEBUG,stdout 
 
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
@@ -17,3 +17,5 @@ log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate=debug
 log4j.logger.java.sql.Connection=debug
 log4j.logger.java.sql.Statement=debug
 log4j.logger.java.sql.PreparedStatement=debug,stdout 
+
+log4j.logger.org.apache.commons.httpclient=DEBUG

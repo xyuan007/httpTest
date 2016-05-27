@@ -35,14 +35,9 @@ public class TestFileUtil {
 		return file;
 	}
 	
-	public static Element getSingleTests(String file){
+	public static Element getAllTests(String file){
 		Element root = MyXMLUtil.getRootElement(file);
-		return (Element) root.selectSingleNode("/AllTests/SingleTest");
-	}
-	
-	public static Element getSequenceTests(String file){
-		Element root = MyXMLUtil.getRootElement(file);
-		return (Element) root.selectSingleNode("/AllTests/SequenceTests");
+		return (Element) root.selectSingleNode("/TestSuite");
 	}
 	
 }

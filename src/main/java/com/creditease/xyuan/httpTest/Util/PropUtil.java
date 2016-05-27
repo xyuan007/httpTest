@@ -70,4 +70,16 @@ public class PropUtil
     public static int getProxyPort(){
     	return Integer.parseInt( getProp("ProxyPort"));
     }
+    
+    public static String getMysqlUrl(){
+    	return getProp("mysqlurl");
+    }
+    
+    public static String getMysqlUserName(){
+    	return getProp("mysqlusername");
+    }
+    
+    public static String getMysqlPassword(){
+    	return getProp("mysqlpassword");
+    }
 }

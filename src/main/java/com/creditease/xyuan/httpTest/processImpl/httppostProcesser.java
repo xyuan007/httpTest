@@ -3,19 +3,20 @@ package com.creditease.xyuan.httpTest.processImpl;
 import java.util.Date;
 import java.util.Map;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.dom4j.Element;
 import com.creditease.xyuan.httpTest.Helper.AssertHelper;
 import com.creditease.xyuan.httpTest.Helper.ConfigHelper;
-import com.creditease.xyuan.httpTest.Helper.DataHelper;
 import com.creditease.xyuan.httpTest.Helper.PublicDataHelper;
 import com.creditease.xyuan.httpTest.Util.HttpClientUtil;
 import com.creditease.xyuan.httpTest.Util.MyLog;
 import com.creditease.xyuan.httpTest.Util.PropUtil;
+import com.creditease.xyuan.httpTest.casedata.ITestcaseData;
+import com.creditease.xyuan.httpTest.casedata.impl.PostData;
 import com.creditease.xyuan.httpTest.object.ConfigData;
 import com.creditease.xyuan.httpTest.process.IExecute;
 
@@ -24,6 +25,7 @@ public class httppostProcesser implements IExecute{
 	
 	public void execute(Element config,boolean bAssert) throws Exception{
 		String response = null;
+		ITestcaseData itd = null;
 		
 		loger.info("开始执行HTTP处理流程");
 		//配置数据
@@ -31,9 +33,8 @@ public class httppostProcesser implements IExecute{
 		ConfigData cd = ConfigHelper.getConfigData(config);
 		
 		//业务数据
-		loger.info("取得业务数据:" + PublicDataHelper.getIns().getCasedata().getCaseName());
-		DataHelper dh = new DataHelper();
-		String body = dh.getJsonBody();
+		itd = new PostData();
+		UrlEncodedFormEntity body = (UrlEncodedFormEntity)itd.getCaseData(config);
 		
 		//执行
 		loger.info("执行HTTP请求");
@@ -47,12 +48,11 @@ public class httppostProcesser implements IExecute{
 			AssertHelper.asserting(response);
 		
 		//清理数据
-		dh = null;
 		cd = null;
 	}
 	
 	private String httpExecute(String url, Map<String, String> headers,
-			Object body) throws Exception {
+			UrlEncodedFormEntity body) throws Exception {
 		String res = null;
 		CloseableHttpClient httpclient = HttpClientUtil.getClient();
 		HttpPost post = new HttpPost(url);
@@ -68,8 +68,7 @@ public class httppostProcesser implements IExecute{
 			
 			//设置ENTITY
 			loger.info("设置HTTP的ENTITY");
-			StringEntity entity = new StringEntity((String)body,PropUtil.getCharSet());  
-			post.setEntity(entity);
+			post.setEntity(body);
 			
 			//执行并返回结果
 			loger.info("执行并返回结果，记录下调用时间和返回码");

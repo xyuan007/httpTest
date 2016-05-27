@@ -30,6 +30,21 @@
 	</model>
 	<model name='newsmth'>
 		<protocol>httpget</protocol>
-		<url>http://www.newsmth.net/frames.html</url>		
+		<url>http://www.newsmth.net/bbscon.php</url>	
+		<headers>
+			<User-Agent>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0</User-Agent>
+		</headers>	
+		<params urlencode='true'></params>
 	</model>	
+	<model name='newsmthlogin'>
+		<protocol>httppost</protocol>
+		<url>http://www.newsmth.net/bbslogin.php</url>
+		<headers>
+			<User-Agent>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0</User-Agent>
+		</headers>			
+	</model>
+	<model name='newsmthlogout'>
+		<protocol>httpget</protocol>
+		<url>http://www.newsmth.net/bbslogout.php</url>		
+	</model>		
 </Config>

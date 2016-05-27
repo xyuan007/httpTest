@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuite>
-	<TestCase name='front'>
-		<bid>44</bid>
-		<id>1265375</id>
+	<TestCase name='login'>
+		<id>xqliang</id>
+		<passwd>6060329</passwd>
 	</TestCase>
 </TestSuite>

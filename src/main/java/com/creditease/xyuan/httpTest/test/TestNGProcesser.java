@@ -45,7 +45,7 @@ public class TestNGProcesser {
 		
 		loger.info("取得待运行的测试用例");
 		for(String file: files){
-			eleSequence = TestFileUtil.getSequenceTests(file);
+			eleSequence = TestFileUtil.getAllTests(file);
 			runSequenceTests(eleSequence);
 		}
 		
@@ -92,7 +92,7 @@ public class TestNGProcesser {
 	//根据标记运行相应的用例步骤
 	private void runTestCaseByTag(Element eleCur,String tag,String seqName){
 		for(int j=0;j<eleCur.elements(tag).size();j++){
-			Element eleStep = (Element)eleCur.selectSingleNode(String.format("/AllTests/SequenceTests/SequenceTest[@name=\"%s\"]/%s[@stepid=\"%d\"]",seqName,tag,j+1));
+			Element eleStep = (Element)eleCur.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]/%s[@stepid=\"%d\"]",seqName,tag,j+1));
 			if(eleStep != null){
 				String modelName  = eleStep.attributeValue("model");
 				String caseName = eleStep.getTextTrim();

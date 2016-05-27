@@ -11,18 +11,32 @@ public class DataHelper {
 	String projectName = null;
 	Element ele = null;
 	
-	public DataHelper() throws Exception {
+	public DataHelper()  {
 		this.projectName = PropUtil.getProjectName();
-		String configFile = String.format("data\\%s\\%s.xml", this.projectName,PublicDataHelper.getIns().getCasedata().getModelName());
-		Element root = MyXMLUtil.getRootElement(configFile);
+		String configFile = null;
+		Element root = null;
+		try{
+			configFile = String.format("data\\%s\\%s.xml", this.projectName,PublicDataHelper.getIns().getCasedata().getModelName());
+			root = MyXMLUtil.getRootElement(configFile);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+			logger.info("路径：" + configFile + "下未找到数据文件，返回空数据");
+			ele = null;}
+
+		try{
+			ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",PublicDataHelper.getIns().getCasedata().getCaseName()));
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+			logger.info("查找数据结点时出错，返回空数据");
+			ele = null;}
+
+
 		
-		ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",PublicDataHelper.getIns().getCasedata().getCaseName()));
-		
-		if(ele == null){
-			logger.error("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
-			throw new Exception("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
-		}
-		processElement(ele);
+//		if(ele == null){
+//			logger.error("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
+//			throw new Exception("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
+//		}
+//		processElement(ele);
 	}
 	
 	public String getDataByField(String field){

@@ -18,12 +18,6 @@ public class DatabaseHelper {
 	private static ServerDAO serverDao = null;
 	private static SqlSessionFactory sessionFactory = null;
 	
-	public static void  main(String[] args){
-//		DatabaseHelper.newReports(2, "http", "devsave", "",new Timestamp((new Date()).getTime()) , new Timestamp((new Date()).getTime()), 111, "200", "success");
-		System.out.println(DatabaseHelper.getMaxRound());
-	}
-	
-	
 	static{
 		String resource = System.getProperty("user.dir") + "\\config\\config.xml";
 		Reader is;

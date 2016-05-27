@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="3" passed="2">
+<testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="40" started-at="2016-05-04T06:39:38Z" finished-at="2016-05-04T06:39:39Z">
+  <suite name="Default Suite" duration-ms="1272" started-at="2016-05-05T03:06:49Z" finished-at="2016-05-05T03:06:50Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="40" started-at="2016-05-04T06:39:38Z" finished-at="2016-05-04T06:39:39Z">
-      <class name="com.creditease.xyuan.httpTest.test.testngRun2">
-        <test-method status="FAIL" signature="aaaa()[pri:0, instance:com.creditease.xyuan.httpTest.test.testngRun2@369bb]" name="aaaa" duration-ms="10" started-at="2016-05-04T14:39:39Z" finished-at="2016-05-04T14:39:39Z">
+    <test name="false" duration-ms="1272" started-at="2016-05-05T03:06:49Z" finished-at="2016-05-05T03:06:50Z">
+      <class name="com.creditease.xyuan.httpTest.test.testngRun">
+        <test-method status="FAIL" signature="runTestCase(org.dom4j.Element)[pri:0, instance:com.creditease.xyuan.httpTest.test.testngRun@1fd0d1]" name="runTestCase" duration-ms="1240" started-at="2016-05-05T11:06:49Z" data-provider="test" finished-at="2016-05-05T11:06:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.dom4j.tree.DefaultElement@b78c9d [Element: <model attributes: [org.dom4j.tree.DefaultAttribute@70c0d1 [Attribute: name name value "newsmth"]]/>]]]>
+              </value>
+            </param>
+          </params>
           <exception class="java.lang.Exception">
             <message>
-              <![CDATA[sdf]]>
+              <![CDATA[org.apache.http.conn.HttpHostConnectException: Connect to 10.36.40.84:8888 [/10.36.40.84] failed: Connection refused: connect]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.Exception: sdf
-	at com.creditease.xyuan.httpTest.test.testngRun2.aaaa(testngRun2.java:37)
+              <![CDATA[java.lang.Exception: org.apache.http.conn.HttpHostConnectException: Connect to 10.36.40.84:8888 [/10.36.40.84] failed: Connection refused: connect
+	at com.creditease.xyuan.httpTest.test.testngRun.runTestCase(testngRun.java:36)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -36,38 +43,18 @@
 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1199)
 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1124)
 	at org.testng.TestNG.run(TestNG.java:1032)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+	at com.creditease.xyuan.httpTest.test.TestNGProcesser.runTestNG(TestNGProcesser.java:138)
+	at com.creditease.xyuan.httpTest.test.TestNGProcesser.runTestCaseByTag(TestNGProcesser.java:108)
+	at com.creditease.xyuan.httpTest.test.TestNGProcesser.runSequenceTests(TestNGProcesser.java:73)
+	at com.creditease.xyuan.httpTest.test.TestNGProcesser.test(TestNGProcesser.java:49)
+	at com.creditease.xyuan.httpTest.test.TestNGProcesser.main(TestNGProcesser.java:25)
 ]]>
             </full-stacktrace>
           </exception> <!-- java.lang.Exception -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- aaaa -->
-        <test-method status="PASS" signature="runTestCase(int)[pri:0, instance:com.creditease.xyuan.httpTest.test.testngRun2@369bb]" name="runTestCase" duration-ms="0" started-at="2016-05-04T14:39:39Z" data-provider="test" finished-at="2016-05-04T14:39:39Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[1]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
         </test-method> <!-- runTestCase -->
-        <test-method status="PASS" signature="runTestCase(int)[pri:0, instance:com.creditease.xyuan.httpTest.test.testngRun2@369bb]" name="runTestCase" duration-ms="10" started-at="2016-05-04T14:39:39Z" data-provider="test" finished-at="2016-05-04T14:39:39Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[2]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runTestCase -->
-      </class> <!-- com.creditease.xyuan.httpTest.test.testngRun2 -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+      </class> <!-- com.creditease.xyuan.httpTest.test.testngRun -->
+    </test> <!-- false -->
+  </suite> <!-- Default Suite -->
 </testng-results>

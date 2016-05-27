@@ -12,21 +12,21 @@ public class testngRun{
 	private static MyLog  loger = MyLog.getLoger();
 	@DataProvider(name = "test")
 	public Object[][] getTestData() throws Exception {
-		boolean bAssert = Reporter.getCurrentTestResult().getTestContext().getName().equals("true") == true? true:false;
 		Element eleConfig = (new ConfigHelper()).getConfigElement();
 		PublicDataHelper.getIns().getCasedata().setApitype( eleConfig.element("protocol").getTextTrim());
 		loger.info("取得用例配置");
 		
 		return new Object[][] {
-			{ eleConfig,bAssert},
+			{ eleConfig},
 		};
 	}
 	 
 	@Test(dataProvider = "test")
-	public void runTestCase(Element config,boolean bAssert) throws Exception {
+	public void runTestCase(Element config) throws Exception {
 //		String protocol = config.elementText("protocol");
 		loger.info("协议：" + config.elementText("protocol"));
-		
+		boolean bAssert = Reporter.getCurrentTestResult().getTestContext().getName().equals("true") == true? true:false;
+
 		try{
 			//不同协议执行不同流程
 			ExecuteFactory.createExecute(config,bAssert);

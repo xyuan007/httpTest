@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<AllTests>
-	<SequenceTests>
-		<SequenceTest index='1' name='newsmth'>
-			<pre stepid='1' model='newsmth'>pre1</pre>
-			<pre stepid='2' model='newsmth'>pre2</pre>			
-			<test stepid='1' model='newsmth'>front</test>	
-			<test stepid='2' model='newsmth'>back</test>				
-			<after stepid='1' model=''>after1</after>
-			<after stepid='2' model=''>after2</after>			
-		</SequenceTest>
-	</SequenceTests>
-</AllTests>
+<TestSuite>
+	<TestCase index='1' name='newsmthlogin'>
+<!-- 		<pre stepid='1' model='newsmth'>front</pre>
+		<test stepid='1' model='newsmthlogin'>login</test>	
+		<after stepid='1' model='newsmth'>logout</after> -->
+<pre stepid='1' model='newsmth'>front</pre>
+	</TestCase>
+</TestSuite>
