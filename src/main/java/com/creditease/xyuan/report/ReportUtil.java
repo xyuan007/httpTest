@@ -43,8 +43,7 @@ public class ReportUtil {
 		props.put("mail.smtp.auth", "true");
 //		props.put("mail.smtp.secureConnection", "true");
 		
-//	    MailAuthenticator authenticator = new MailAuthenticator(encode("xuqingliang@creditease.cn"),encode("qweqwe111!!!"));
-	    MailAuthenticator authenticator = new MailAuthenticator("xuqingliang@creditease.cn","qweqwe111!!!");
+	    MailAuthenticator authenticator = new MailAuthenticator("","");
 	    // 创建session
 	    Session session = Session.getInstance(props, authenticator);
 	    
@@ -52,7 +51,7 @@ public class ReportUtil {
 	    // 设置发信人
 	    message.setFrom(new InternetAddress(authenticator.getUsername()));
 	    // 设置收件人
-	    message.setRecipient(RecipientType.TO, new InternetAddress("xuqingliang@creditease.cn"));
+	    message.setRecipient(RecipientType.TO, new InternetAddress(""));
 	    // 设置主题
 	    message.setSubject("subject");
 	    // 设置邮件内容
