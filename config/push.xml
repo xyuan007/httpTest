@@ -12,8 +12,8 @@
 		<protocol>httppost</protocol>
 		<url>http://10.36.40.26:88/bdapiplat/api/user/manage/lu</url>	
 		<headers>
-			<Timestamp func='com.creditease.xyuan.httpTest.Util.FuncUtil'>getTimestamp</Timestamp>
-			<Signature func='com.creditease.xyuan.httpTest.Util.FuncUtil'>getSign</Signature>			
+			<Timestamp func='com.test.xyuan.httpTest.Util.FuncUtil'>getTimestamp</Timestamp>
+			<Signature func='com.test.xyuan.httpTest.Util.FuncUtil'>getSign</Signature>			
 		</headers>
 	</model>
 	<model name='connect'>

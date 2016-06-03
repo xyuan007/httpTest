@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="com.creditease.xyuan.httpTest.DAO.ServerDAO">
+<mapper namespace="com.test.xyuan.httpTest.DAO.ServerDAO">
     <insert id="newRunReports">
 		insert into api_runreports(day,round,status,createtime) values(CURDATE(),#{round},1,NOW());
     </insert>
