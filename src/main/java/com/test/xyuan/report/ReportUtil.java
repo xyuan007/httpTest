@@ -13,7 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
-import com.test.xyuan.httpTest.Util.PropUtil;
+import com.test.xyuan.httpTest.Util.SystemPropUtil;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -100,7 +100,7 @@ public class ReportUtil {
     		return conn;
     	
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());     
-        conn = DriverManager.getConnection( PropUtil.getMysqlUrl(),PropUtil.getMysqlUserName(),PropUtil.getMysqlPassword() );   
+        conn = DriverManager.getConnection( SystemPropUtil.getMysqlUrl(),SystemPropUtil.getMysqlUserName(),SystemPropUtil.getMysqlPassword() );   
         return conn;
     }  
 }

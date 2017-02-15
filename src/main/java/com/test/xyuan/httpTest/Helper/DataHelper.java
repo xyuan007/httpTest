@@ -9,15 +9,14 @@ import com.test.xyuan.httpTest.Util.*;
 
 public class DataHelper {
 	private static MyLog logger = MyLog.getLoger();
-	String projectName = null;
+//	String projectName = null;
 	Element ele = null;
 	
 	public DataHelper()  {
-		this.projectName = PropUtil.getProjectName();
 		String configFile = null;
 		Element root = null;
 		try{
-			configFile = String.format("data\\%s\\%s.xml", this.projectName,PublicDataHelper.getIns().getCasedata().getModelName());
+			configFile = String.format("data\\%s\\%s.xml", ProjectPropUtil.getProjectName(),PublicDataHelper.getIns().getCasedata().getModelName());
 			root = MyXMLUtil.getRootElement(configFile);
 		}catch(Exception ex){
 			logger.error(ex.getMessage());
@@ -28,16 +27,9 @@ public class DataHelper {
 			ele = (Element)root.selectSingleNode(String.format("/TestSuite/TestCase[@name=\"%s\"]",PublicDataHelper.getIns().getCasedata().getCaseName()));
 		}catch(Exception ex){
 			logger.error(ex.getMessage());
-			logger.info("查找数据结点时出错，返回空数据");
+//			logger.info("查找数据结点时出错，返回空数据");
 			ele = null;}
 
-
-		
-//		if(ele == null){
-//			logger.error("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
-//			throw new Exception("数据结点未进行配置，用例名：" + PublicDataHelper.getIns().getCasedata().getCaseName());
-//		}
-//		processElement(ele);
 	}
 	
 	public String getDataByField(String field){
@@ -81,7 +73,7 @@ public class DataHelper {
 					}
 					else if (param.equals("func")){
 						logger.info("处理FUNC参数，动态生成数据");
-						Class clazz = Class.forName(PropUtil.getFuncClass());
+						Class clazz = Class.forName(ProjectPropUtil.getFuncClass());
 						String input = temp.attributeValue("input");
 						Method method = null;
 						Object obj = null;

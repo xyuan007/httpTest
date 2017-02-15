@@ -4,7 +4,6 @@ import org.dom4j.Element;
 import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import com.test.xyuan.httpTest.Helper.ConfigHelper;
 import com.test.xyuan.httpTest.Helper.PublicDataHelper;
 import com.test.xyuan.httpTest.Util.MyLog;
@@ -14,7 +13,7 @@ public class testngRun{
 	@DataProvider(name = "test")
 	public Object[][] getTestData() throws Exception {
 		Element eleConfig = (new ConfigHelper()).getConfigElement();
-		PublicDataHelper.getIns().getCasedata().setApitype( eleConfig.element("protocol").getTextTrim());
+		PublicDataHelper.getIns().getCasedata().setApitype(eleConfig.element("protocol").getTextTrim());
 		loger.info("取得用例配置");
 		
 		return new Object[][] {

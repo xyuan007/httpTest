@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import com.test.xyuan.httpTest.Util.MyLog;
+import com.test.xyuan.httpTest.Util.ProjectPropUtil;
 
 public class AssertHelper {
 	private static MyLog logger = MyLog.getLoger();
@@ -15,7 +16,7 @@ public class AssertHelper {
 		Class clazz;
 		try {
 			logger.info("验证的方法名：" + methodname);
-			clazz = Class.forName(pkgname+"."+filename);
+			clazz = Class.forName(String.format("%s.%s.%s", pkgname,ProjectPropUtil.getProjectName(),filename) );
 			Constructor c1 = clazz.getDeclaredConstructor(new Class[]{String.class});
 			c1.setAccessible(true); 
 			Object obj = c1.newInstance(response);

@@ -2,6 +2,7 @@ package com.test.xyuan.httpTest.processImpl;
 
 import java.util.Date;
 import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,7 +16,8 @@ import com.test.xyuan.httpTest.Helper.DataHelper;
 import com.test.xyuan.httpTest.Helper.PublicDataHelper;
 import com.test.xyuan.httpTest.Util.HttpClientUtil;
 import com.test.xyuan.httpTest.Util.MyLog;
-import com.test.xyuan.httpTest.Util.PropUtil;
+import com.test.xyuan.httpTest.Util.ProjectPropUtil;
+import com.test.xyuan.httpTest.Util.SystemPropUtil;
 import com.test.xyuan.httpTest.casedata.ITestcaseData;
 import com.test.xyuan.httpTest.casedata.impl.GetData;
 import com.test.xyuan.httpTest.object.ConfigData;
@@ -60,33 +62,38 @@ public class httpgetProcesser implements IExecute{
 	private String httpExecute(String url, Map<String, String> headers) throws Exception {
 		String res = null;
 		CloseableHttpClient httpclient = HttpClientUtil.getClient();
-		HttpGet get = new HttpGet(url);
+		HttpGet request = new HttpGet(url);
 		
 		try{
 			//设置HEADER
 			loger.info("设置HTTP的HEADER信息");
 			if (headers != null) {  
 	             for (Map.Entry<String,String> entry : headers.entrySet()) { 
-	            	 get.addHeader(entry.getKey(), entry.getValue());  
+	            	 request.addHeader(entry.getKey(), entry.getValue());  
 	             }  
 	      	}
-			
+
+			//记录请求
+			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
 			//执行并返回结果
 			loger.info("执行并返回结果，记录下调用时间和返回码");
 			Date d1 = new Date();
-			CloseableHttpResponse response = httpclient.execute(get);
+			CloseableHttpResponse response = httpclient.execute(request);
 			long time = new Date().getTime() - d1.getTime();
 			
 			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
 			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
-	        res = EntityUtils.toString(resEntity, PropUtil.getCharSet());
+	        res = EntityUtils.toString(resEntity, ProjectPropUtil.getCharSet());
+	        
+	        //记录响应
+			PublicDataHelper.getIns().getCasedata().setResponseData(res);
 		}
 		catch(Exception ex){
 			throw new Exception(ex);
 		}
 		finally{
-			get.releaseConnection();
+			request.releaseConnection();
 		}
 		
 		return res;

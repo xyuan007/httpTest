@@ -3,27 +3,28 @@ package com.test.xyuan.httpTest.Helper;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.dom4j.Element;
 
 import com.test.xyuan.httpTest.Util.MyLog;
 import com.test.xyuan.httpTest.Util.MyXMLUtil;
-import com.test.xyuan.httpTest.Util.PropUtil;
+import com.test.xyuan.httpTest.Util.ProjectPropUtil;
+import com.test.xyuan.httpTest.Util.SystemPropUtil;
 import com.test.xyuan.httpTest.object.ConfigData;
 
 public class ConfigHelper {
 	private static MyLog loger = MyLog.getLoger();
-	String projectName = null;
 	Element ele = null;
 	
 	public ConfigHelper() throws Exception {
-		this.projectName = PropUtil.getProjectName();
-		String configFile = String.format("config\\%s.xml", this.projectName);
+		String configFile = String.format("config\\%s.xml", ProjectPropUtil.getProjectName());
 		Element root = MyXMLUtil.getRootElement(configFile);
 		
 		ele = (Element)root.selectSingleNode(String.format("/Config/model[@name=\"%s\"]",PublicDataHelper.getIns().getCasedata().getModelName()));
 		if(ele == null){
-			loger.error("config文件中，模块：" + PublicDataHelper.getIns().getCasedata().getModelName() + "未进行配置");
-			throw new Exception("config文件中，模块：" + PublicDataHelper.getIns().getCasedata().getModelName() + "未进行配置");
+			String logInfo = "config文件中，模块：" + PublicDataHelper.getIns().getCasedata().getModelName() + "未进行配置";
+			loger.error(logInfo);
+			throw new Exception(logInfo);
 		}
 	}
 	
@@ -64,22 +65,23 @@ public class ConfigHelper {
 				}
 			}
 			
-			Element eleParam = ele.element("params");
-			Map<String,String> param = null;
-			if(eleParam!=null){
-				param = new HashMap<String,String>();
-				for(int i=0;i<eleParam.elements().size();i++){
-					Element temp = (Element) eleHeader.elements().get(i);
-					param.put(temp.getName(), temp.getTextTrim());
-				}
-			}
+//			Element eleParam = ele.element("params");
+//			Map<String,String> param = null;
+//			if(eleParam!=null){
+//				param = new HashMap<String,String>();
+//				for(int i=0;i<eleParam.elements().size();i++){
+//					Element temp = (Element) eleHeader.elements().get(i);
+//					param.put(temp.getName(), temp.getTextTrim());
+//				}
+//			}
 			
 			cd.setHeaders(header);
-			cd.setParams(param);
+//			cd.setParams(param);
 		}
 		catch(Exception e){
-			loger.error("获得模块" + PublicDataHelper.getIns().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
-			throw new Exception("获得模块" + PublicDataHelper.getIns().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage());
+			String logInfo = "获得模块" + PublicDataHelper.getIns().getCasedata().getModelName() + "的配置数据时出错：" + e.getMessage();
+			loger.error(logInfo);
+			throw new Exception(logInfo);
 		}
 		return cd;
 	}

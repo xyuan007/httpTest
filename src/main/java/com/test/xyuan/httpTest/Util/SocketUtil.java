@@ -30,7 +30,7 @@ public class SocketUtil {
 		selector = Selector.open();
 		socketChannel = SocketChannel.open();
 		socketChannel.configureBlocking(false);
-		SocketAddress socketAddress = new InetSocketAddress(PropUtil.getSocketIP(), PropUtil.getSocketPort()); 
+		SocketAddress socketAddress = new InetSocketAddress(ProjectPropUtil.getSocketIP(), ProjectPropUtil.getSocketPort()); 
 		socketChannel.socket().setKeepAlive(true);
 		socketChannel.connect(socketAddress);   
 		socketChannel.register(selector, SelectionKey.OP_READ | 

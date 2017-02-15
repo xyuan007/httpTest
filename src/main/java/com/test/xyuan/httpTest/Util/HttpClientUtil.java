@@ -11,8 +11,8 @@ public class HttpClientUtil {
 	
 	public static CloseableHttpClient getClient(){
 		if(httpclient == null){		
-			if(PropUtil.getHttpProxy().equals("true")){
-				HttpHost proxy = new HttpHost(PropUtil.getProxyIP(), PropUtil.getProxyPort());  
+			if(ProjectPropUtil.getHttpProxy().equals("true")){
+				HttpHost proxy = new HttpHost(ProjectPropUtil.getProxyIP(), ProjectPropUtil.getProxyPort());  
 				httpclient = HttpClientBuilder.create().setProxy(proxy).build();
 			}
 			else

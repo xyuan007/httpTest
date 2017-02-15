@@ -1,7 +1,12 @@
 package com.test.xyuan.httpTest.processImpl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,7 +20,7 @@ import com.test.xyuan.httpTest.Helper.ConfigHelper;
 import com.test.xyuan.httpTest.Helper.PublicDataHelper;
 import com.test.xyuan.httpTest.Util.HttpClientUtil;
 import com.test.xyuan.httpTest.Util.MyLog;
-import com.test.xyuan.httpTest.Util.PropUtil;
+import com.test.xyuan.httpTest.Util.ProjectPropUtil;
 import com.test.xyuan.httpTest.casedata.ITestcaseData;
 import com.test.xyuan.httpTest.casedata.impl.PostData;
 import com.test.xyuan.httpTest.object.ConfigData;
@@ -50,7 +55,7 @@ public class httppostProcesser implements IExecute{
 		
 		//清理数据
 		cd = null;
-	}
+}
 	
 	private String httpExecute(String url, Map<String, String> headers,
 			UrlEncodedFormEntity body) throws Exception {
@@ -70,6 +75,9 @@ public class httppostProcesser implements IExecute{
 			//设置ENTITY
 			loger.info("设置HTTP的ENTITY");
 			post.setEntity(body);
+			//记录请求
+			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
+			PublicDataHelper.getIns().getCasedata().setRequestData(convertIS2String(body.getContent()));
 			
 			//执行并返回结果
 			loger.info("执行并返回结果，记录下调用时间和返回码");
@@ -80,7 +88,8 @@ public class httppostProcesser implements IExecute{
 			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
 			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
-	        res = EntityUtils.toString(resEntity, PropUtil.getCharSet());
+	        res = EntityUtils.toString(resEntity, ProjectPropUtil.getCharSet());
+	        PublicDataHelper.getIns().getCasedata().setResponseData(res);
 		}
 		catch(Exception ex){}
 		finally{
@@ -88,5 +97,27 @@ public class httppostProcesser implements IExecute{
 		}
 		
 		return res;
+	}
+	
+	private String convertIS2String(InputStream is){
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));      
+        StringBuilder sb = new StringBuilder();      
+      
+        String line = null;    
+        
+        try {      
+             while ((line = reader.readLine()) != null) {      
+                  sb.append(line + "\n");      
+              }      
+          } catch (IOException e) {      
+              e.printStackTrace();      
+          } finally {      
+            try {      
+                 is.close();      
+              } catch (IOException e) {      
+                  e.printStackTrace();      
+             }      
+          }      
+         return sb.toString();  
 	}
 }

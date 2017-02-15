@@ -3,22 +3,26 @@ package com.test.xyuan.httpTest.Util;
 import java.security.MessageDigest;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.test.xyuan.httpTest.Helper.PublicDataHelper;
 
 public class FuncUtil {
+	private static MyLog loger = MyLog.getLoger();
 	static String timestamp  = null;
 	
-	public static String getString(){
-		return "test";
-	}
-	
-	public static int getInt(){
-		return 159;
+	public static String getOutputValue(String key){
+		String res = (String) PublicDataHelper.getIns().getOutput().getValue(key);
+		System.out.println("key:::::::"+key+"   value:::::::::" + res);
+		return res;
 	}
 	
 	public static String getTimestamp(){
 		timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
 		return timestamp;
 	}
+	
 	
 	public static String getRandomNumber(String length){
 		String base = "0123456789";     
@@ -87,11 +91,21 @@ public class FuncUtil {
         return des;
     }
     
+    //去掉UUID
+    public static String removeUUID(String input){
+    	Pattern pattern = Pattern.compile("[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}", Pattern.DOTALL);
+    	Matcher matcher = pattern.matcher(input);
+    	String string = matcher.replaceAll("");
+    	System.out.println(string);//
+    	return  string;
+    }
+    
     public static void main(String[] args){
     	String time = "1458633734743";
     	String sign = "test.bdapiplat" + "210.22.89.58d27d320c27c3033b7883xg6XBXvCLEA673ya8d77test@sohu.com5ekl" + time;
     	
-    	System.out.println( FuncUtil.sha1(sign));
+    	
+    	
     }
 	
 }

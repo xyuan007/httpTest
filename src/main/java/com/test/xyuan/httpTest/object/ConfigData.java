@@ -7,7 +7,7 @@ public class ConfigData {
 	String url = null;
 	String dataformat = null;
 	Map<String,String> headers = null;
-	Map<String,String> params = null;
+//	Map<String,String> params = null;
 	
 	public String getProtocol() {
 		return protocol;
@@ -27,11 +27,11 @@ public class ConfigData {
 	public void setHeaders(Map<String, String> headers) {
 		this.headers = headers;
 	}
-	public Map<String, String> getParams() {
-		return params;
-	}
-	public void setParams(Map<String, String> params) {
-		this.params = params;
-	}
+//	public Map<String, String> getParams() {
+//		return params;
+//	}
+//	public void setParams(Map<String, String> params) {
+//		this.params = params;
+//	}
 	
 }
