@@ -9,6 +9,7 @@ import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
+import com.test.xyuan.httpTest.Helper.ConfigHelper;
 import com.test.xyuan.httpTest.Helper.DatabaseHelper;
 import com.test.xyuan.httpTest.Helper.PublicDataHelper;
 import com.test.xyuan.httpTest.Listener.TestListener;
@@ -19,7 +20,6 @@ import com.test.xyuan.httpTest.Util.TestFileUtil;
 
 public class TestNGProcesser {
 	private static MyLog loger = MyLog.getLoger();
-	private static PublicDataHelper pdh = PublicDataHelper.getIns();
 	private static int round;
 	
 	public static void main(String[] args) throws Exception{
@@ -44,7 +44,7 @@ public class TestNGProcesser {
 		//轮次，公共数据初始
 		round = DatabaseHelper.getMaxRound(proName) + 1;
 		DatabaseHelper.newRunReports(round);
-		pdh.initRoundData(round);
+		PublicDataHelper.getIns().initRoundData(round);
 		
 		//取得运行模式
 		loger.info("取得runmode对应的用例文件");
@@ -68,25 +68,29 @@ public class TestNGProcesser {
 	private void runSequenceTests(Element eleSequence){
 		loger.info("运行顺序执行的用例");
 		try{
+		//输出数据初始化
+		PublicDataHelper.getIns().initOutputData();
+			
 		//	SequenceTest的用例执行
 		if(eleSequence != null){
 			for(int i=0;i<eleSequence.elements().size();i++){
-				pdh.setRunFlag(true);
+				//设置运行标志，用于判断失败后是否继续运行。
+				PublicDataHelper.getIns().setRunFlag(true);
 				Element eleCur = (Element)eleSequence.elements().get(i);
 				String seqName = eleCur.attributeValue("name");
 				//pre
 				runTestCaseByTag(eleCur,"pre",seqName);
-				if(pdh.getRunFlag() == false)
+				if(PublicDataHelper.getIns().getRunFlag() == false)
 					continue;
 				
 				//test
 				runTestCaseByTag(eleCur,"test",seqName);
-				if(pdh.getRunFlag() == false)
+				if(PublicDataHelper.getIns().getRunFlag() == false)
 					continue;
 				
 				//after
 				runTestCaseByTag(eleCur,"after",seqName);
-				if(pdh.getRunFlag() == false)
+				if(PublicDataHelper.getIns().getRunFlag() == false)
 					continue;
 			}
 		}
@@ -101,18 +105,20 @@ public class TestNGProcesser {
 				String modelName  = eleStep.attributeValue("model");
 				String caseName = eleStep.getTextTrim();
 				String stepid = eleStep.attributeValue("stepid");
-				String cycle = eleStep.attributeValue("cycle");
-				
-				pdh.initCaseData(modelName, caseName, null, round,seqName,stepid,tag,ProjectPropUtil.getProjectName());
+
+				PublicDataHelper.getIns().initCaseData(modelName, caseName, null, round,seqName,stepid,tag,ProjectPropUtil.getProjectName());
 				//执行TESTNG CASE
 				loger.info("TESTNG动态执行用例。模块名：" + modelName + ",用例名称：" + caseName);
 
+				ConfigHelper ch = new ConfigHelper();
+				String cycle = ch.getCycle();
+				
 				//需要循环执行的请求
 				if(cycle!=null && cycle.equals("true")){
 					int timeout = ProjectPropUtil.getTimeOut();
 					int total = ProjectPropUtil.getWaitTime();
 					PublicDataHelper.getIns().setCycleFlag("true");//初始需要循环
-					int i = 0;
+					int i=0;
 					for(;i<total-1;i++){
 						runTestNGByTag(tag);
 						
@@ -122,14 +128,14 @@ public class TestNGProcesser {
 							break;
 					}
 					//循环结束，超时仍未拿到结果，直接失败
-					PublicDataHelper.getIns().setCycleFlag("timeout");
-					runTestNGByTag(tag);
+					if(i==total-1)
+						PublicDataHelper.getIns().setCycleFlag("timeout");
 				}
 				else{//不需要循环，直接执行请求
 					runTestNGByTag(tag);
 				}
 				
-				if(pdh.getRunFlag() == false)
+				if(PublicDataHelper.getIns().getRunFlag() == false)
 					break;
 			}
 		}

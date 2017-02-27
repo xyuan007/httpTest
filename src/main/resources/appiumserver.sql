@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : mysql
 Source Server Version : 50527
 Source Host           : localhost:3306
-Source Database       : appiumserver
+Source Database       : apiserver
 
 Target Server Type    : MYSQL
 Target Server Version : 50527
@@ -35,19 +35,19 @@ CREATE TABLE `api_data` (
 DROP TABLE IF EXISTS `api_detailreports`;
 CREATE TABLE `api_detailreports` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `day` date NOT NULL,
-  `round` int(3) NOT NULL,
-  `casetype` varchar(10) DEFAULT NULL,
-  `sequencename` varchar(20) DEFAULT NULL,
-  `index` varchar(4) DEFAULT NULL,
-  `apitype` varchar(10) NOT NULL COMMENT 'http,socket...........',
-  `apiname` varchar(50) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `responsecode` varchar(50) DEFAULT NULL,
-  `message` varchar(5000) DEFAULT NULL,
-  `starttime` datetime DEFAULT NULL,
-  `endtime` datetime DEFAULT NULL,
-  `exectime` varchar(10) DEFAULT NULL,
+  `day` date NOT NULL COMMENT '执行日',
+  `round` int(3) NOT NULL COMMENT '执行轮次',
+  `casetype` varchar(10) DEFAULT NULL COMMENT '案例类型',
+  `sequencename` varchar(20) DEFAULT NULL COMMENT '执行案例名称',
+  `index` varchar(4) DEFAULT NULL COMMENT '执行顺序号',
+  `apitype` varchar(10) NOT NULL COMMENT '接口类型：http,socket...........',
+  `apiname` varchar(50) NOT NULL COMMENT '接口名称',
+  `status` varchar(20) NOT NULL COMMENT '接口状态',
+  `responsecode` varchar(50) DEFAULT NULL COMMENT '返回码',
+  `message` varchar(5000) DEFAULT NULL COMMENT '返回消息',
+  `starttime` datetime DEFAULT NULL COMMENT '开始时间',
+  `endtime` datetime DEFAULT NULL COMMENT '结束时间',
+  `exectime` varchar(10) DEFAULT NULL COMMENT '后台执行时间',
   `createtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -61,13 +61,13 @@ CREATE TABLE `api_detailreports` (
 -- ----------------------------
 DROP TABLE IF EXISTS `api_runreports`;
 CREATE TABLE `api_runreports` (
-  `day` date NOT NULL,
-  `round` int(3) NOT NULL,
-  `apitotal` int(5) DEFAULT NULL,
-  `success` int(5) DEFAULT NULL,
-  `fail` int(5) DEFAULT NULL,
-  `notrun` int(5) DEFAULT NULL,
-  `status` int(1) NOT NULL,
+  `day` date NOT NULL COMMENT '执行日',
+  `round` int(3) NOT NULL COMMENT '执行轮次',
+  `apitotal` int(5) DEFAULT NULL COMMENT '执行的API总数',
+  `success` int(5) DEFAULT NULL COMMENT '执行成功的API数',
+  `fail` int(5) DEFAULT NULL COMMENT '执行失败的API数',
+  `notrun` int(5) DEFAULT NULL COMMENT '未执行的API数',
+  `status` int(1) NOT NULL COMMENT '本轮次执行状态',
   `createtime` datetime DEFAULT NULL,
   PRIMARY KEY (`day`,`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -10,7 +10,7 @@
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://localhost:3306/appiumserver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/apiserver" />
                 <property name="username" value="root" />
                 <property name="password" value="root" />
             </dataSource>

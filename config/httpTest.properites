@@ -1,15 +1,4 @@
-RunMode=debug
-TestFile=Test1.xml,Test2.xml
-TestProject=push
-HttpProxy=true
-ProxyIP=10.36.40.84
-ProxyPort=8888
-RunClass=com.test.xyuan.httpTest.test.testngRun
-FuncClass=com.test.xyuan.httpTest.Util.FuncUtil
-SocketIP=10.36.40.82
-#SocketIP=10.36.41.109
-SocketPort=5449
-CharSet=gb2312
-mysqlurl=jdbc:mysql://localhost:3306/appiumserver
+TestProject=jx
+mysqlurl=jdbc:mysql://localhost:3306/apiserver
 mysqlusername=root
 mysqlpassword=root

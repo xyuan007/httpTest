@@ -75,9 +75,6 @@ public class httppostProcesser implements IExecute{
 			//设置ENTITY
 			loger.info("设置HTTP的ENTITY");
 			post.setEntity(body);
-			//记录请求
-			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
-			PublicDataHelper.getIns().getCasedata().setRequestData(convertIS2String(body.getContent()));
 			
 			//执行并返回结果
 			loger.info("执行并返回结果，记录下调用时间和返回码");
@@ -85,10 +82,14 @@ public class httppostProcesser implements IExecute{
 			CloseableHttpResponse response = httpclient.execute(post);
 			long time = new Date().getTime() - d1.getTime();
 			
-			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
-			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
 	        res = EntityUtils.toString(resEntity, ProjectPropUtil.getCharSet());
+
+			//记录请求
+			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
+			PublicDataHelper.getIns().getCasedata().setRequestData(convertIS2String(body.getContent()));
+			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
+			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 	        PublicDataHelper.getIns().getCasedata().setResponseData(res);
 		}
 		catch(Exception ex){}

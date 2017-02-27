@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<AllTests>
-	<SingleTest>
-		<!-- <Test model='modifyApp'>modifyApp</Test> -->
-		<Test model='queryAppList'>queryAppList</Test>	
-		<Test model='lg'>lg</Test>	
-	</SingleTest>
-	<SequenceTests>
-		<SequenceTest name='queryAndmodifyApp'>
-			<step stepid='1' model='lg'  output='token'>lg</step>		
-			<step stepid='2' output='user_id' model='queryAppList'>queryAppList</step>
-		</SequenceTest>
-	</SequenceTests>
-</AllTests>
+<TestSuite>
+	<TestCase index='1' name='multi'>
+		<pre stepid='1' model='login'>login</pre>
+		<test stepid='1' model='get_market_risk_profile'>multiday</test>
+		<test stepid='2' model='get_market_risk_profile_cycle'>multiday</test>
+	</TestCase>
+	<TestCase index='2' name='query'>
+		<pre stepid='1' model='login'>login</pre>
+		<test stepid='1' model='get_fluct_analysis_configs'>query</test>
+	</TestCase>	
+</TestSuite>

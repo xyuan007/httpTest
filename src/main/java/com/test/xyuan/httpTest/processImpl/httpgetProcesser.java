@@ -47,8 +47,7 @@ public class httpgetProcesser implements IExecute{
 		//执行
 		loger.info("执行HTTP请求");
 		response = httpExecute(url, cd.getHeaders());
-		
-		System.out.println(body);
+
 		System.out.println(response);
 		//验证
 		loger.info("结果验证");
@@ -62,8 +61,8 @@ public class httpgetProcesser implements IExecute{
 	private String httpExecute(String url, Map<String, String> headers) throws Exception {
 		String res = null;
 		CloseableHttpClient httpclient = HttpClientUtil.getClient();
-		HttpGet request = new HttpGet(url);
-		
+		HttpGet request = new HttpGet(urlConvert(url));
+
 		try{
 			//设置HEADER
 			loger.info("设置HTTP的HEADER信息");
@@ -73,20 +72,19 @@ public class httpgetProcesser implements IExecute{
 	             }  
 	      	}
 
-			//记录请求
-			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
 			//执行并返回结果
 			loger.info("执行并返回结果，记录下调用时间和返回码");
 			Date d1 = new Date();
 			CloseableHttpResponse response = httpclient.execute(request);
 			long time = new Date().getTime() - d1.getTime();
 			
-			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
-			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 	        HttpEntity resEntity = response.getEntity();
 	        res = EntityUtils.toString(resEntity, ProjectPropUtil.getCharSet());
 	        
-	        //记录响应
+			//记录请求
+			PublicDataHelper.getIns().getCasedata().setRequestURL(url);
+			PublicDataHelper.getIns().getCasedata().setResponsecode(String.valueOf(response.getStatusLine().getStatusCode()));
+			PublicDataHelper.getIns().getCasedata().setExectime(String.valueOf(time));
 			PublicDataHelper.getIns().getCasedata().setResponseData(res);
 		}
 		catch(Exception ex){
@@ -98,4 +96,12 @@ public class httpgetProcesser implements IExecute{
 		
 		return res;
 	}
+	
+	private String urlConvert(String url){
+		url = url.replaceAll("\\{", "%7b");
+		url = url.replaceAll("\\}", "%7d");
+		url = url.replaceAll("\\\"", "%22");
+		return url;
+	}
+	
 }

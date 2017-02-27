@@ -10,6 +10,10 @@ public class OutputData {
 		return this.output;
 	}
 	
+	public void initOutput(){
+		output = new HashMap<String, Object>();
+	}
+	
 	public void setValue(String key,Object value) {
 		if(output.containsKey(key))
 			output.remove(key);

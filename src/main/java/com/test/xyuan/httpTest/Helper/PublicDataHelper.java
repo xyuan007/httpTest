@@ -4,6 +4,7 @@ import com.test.xyuan.httpTest.dm.CaseData;
 import com.test.xyuan.httpTest.dm.OutputData;
 import com.test.xyuan.httpTest.dm.RoundData;
 
+//公共数据对象，单例
 public class PublicDataHelper {
 	private static PublicDataHelper instance = new PublicDataHelper();
 	
@@ -56,6 +57,10 @@ public class PublicDataHelper {
 
 	public RoundData getRound() {
 		return round;
+	}
+	
+	public void initOutputData(){
+		output.initOutput();
 	}
 	
 }

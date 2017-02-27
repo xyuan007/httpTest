@@ -40,6 +40,10 @@ public class ConfigHelper {
 		return ele.elementText("protocol");
 	}
 	
+	public String getCycle(){
+		return ele.elementText("cycle");
+	}
+	
 	//取得配置数据
 	public static ConfigData getConfigData(Element ele) throws Exception {
 		ConfigData cd = new ConfigData();

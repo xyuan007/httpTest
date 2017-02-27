@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuite>
-	<TestCase index='1' name='newsmthlogin'>
-<!-- 		<pre stepid='1' model='newsmth'>front</pre>
-		<test stepid='1' model='newsmthlogin'>login</test>	
-		<after stepid='1' model='newsmth'>logout</after> -->
-<pre stepid='1' model='newsmth'>front</pre>
+	<TestCase index='1' name='query'>
+		<pre stepid='1' model='login'>login</pre>
+		<test stepid='1' model='get_performance_attribution'>query_seq</test>
+		<test stepid='2' model='get_performance_attribution_cycle'>query_seq</test>		
 	</TestCase>
 </TestSuite>
